@@ -1,0 +1,58 @@
+﻿@model E1.Branch
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Branch</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressLineOne)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddressLineOne)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressLineTwo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddressLineTwo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Branch2.BranchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch2.BranchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Leader.LeaderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Leader.LeaderName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BranchId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

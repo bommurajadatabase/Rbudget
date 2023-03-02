@@ -1,0 +1,130 @@
+﻿@model E1.LoanCard
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LoanCard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanCardName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanCardName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlannedCollectionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlannedCollectionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningBalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpeningBalance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImpactTransValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImpactTransValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NonImpactTransValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NonImpactTransValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingBalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClosingBalance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlannedCashAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlannedCashAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualCashAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualCashAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlannedProfitAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlannedProfitAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualProfitAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualProfitAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualCollectionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualCollectionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCollected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCollected)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Loan.LoanName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Loan.LoanName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LoanCardId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

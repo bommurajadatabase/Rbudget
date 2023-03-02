@@ -1,0 +1,106 @@
+﻿@model E1.Loan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Loan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DistributdedAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DistributdedAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DistributdedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DistributdedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstDueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstDueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningBalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpeningBalance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterestPercentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterestPercentage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EMIAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMIAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoOfDues)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoOfDues)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Branch.BranchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch.BranchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.CustomerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.CustomerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RepaymentType.RepaymentTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepaymentType.RepaymentTypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LoanId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

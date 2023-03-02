@@ -1,0 +1,345 @@
+﻿@model IEnumerable<E1.LoanCard>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    tfoot {
+        display: table-header-group;
+    }
+
+    thead {
+        display: table-row-group
+    }
+</style>
+
+@using (Html.BeginForm("Index", "LoanCards", FormMethod.Post))
+{
+
+    @*<table cellpadding="0" cellspacing="0">
+        <tr>*@
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.TextBox("LoanCardFromDate", null, new { @class = "form-control", @placeholder = "LoanCardFromDate" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("LoanCardToDate", null, new { @class = "form-control", @placeholder = "LoanCardToDate" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="LoanCard" class="form-control btn-primary" />
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+
+    @*</tr>
+
+        </table>*@
+}
+
+<br />
+<br />
+<br />
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table id="loancardTable" class="table">
+    <thead>
+
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <thead>
+        <tr>
+            <th>
+                Loan Name
+            </th>
+            <th>
+                Collection Date
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.LoanCardName)
+                </th>*@
+            <th>
+                Opening Balance
+            </th>
+            <th>
+                Impact 
+            </th>
+            <th>
+                NonImpact 
+            </th>
+            <th>
+                Closing Balance 
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.DueNumber)
+                </th>*@
+
+            <th>
+                Cash Account
+            </th>
+            <th>
+                Profit Account
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ActualCashAccount)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ActualProfitAccount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ActualCollectionDate)
+                </th>*@
+            <th>
+                Done
+            </th>
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <thead>
+
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Loan.LoanName
+            </td>
+            <td>
+                @item.PlannedCollectionDate.Value.ToString("dd-MMM-yyyy")
+                @*@Html.DisplayFor(modelItem => item.PlannedCollectionDate)*@
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.LoanCardName)
+                </td>*@
+            <td>
+                @item.OpeningBalance
+            </td>
+            <td>
+                @item.ImpactTransValue
+            </td>
+            <td>
+                @item.NonImpactTransValue
+            </td>
+            <td>
+                @item.ClosingBalance
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DueNumber)
+                </td>*@
+
+
+
+            <td>
+                @item.PlannedCashAccount
+            </td>
+            <td>
+                @item.PlannedProfitAccount
+            </td>
+
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ActualCashAccount)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActualProfitAccount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActualCollectionDate)
+                </td>*@
+            <td>
+                @item.IsCollected
+            </td>
+
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.LoanCardId })*@
+                @Html.ActionLink("Details", "Details", new { id = item.LoanCardId })
+                @*|@Html.ActionLink("Delete", "Delete", new { id = item.LoanCardId })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<style type="text/css">
+    tfoot {
+        display: table-row-group;
+    }
+</style>
+
+<script>
+
+    // Initialize the DataTable
+    $(document).ready(function () {
+
+        $("#LoanCardFromDate").datepicker({
+            dateFormat: 'dd-M-yy'
+        });
+
+        $("#LoanCardToDate").datepicker({
+            dateFormat: 'dd-M-yy'
+        });
+
+
+
+        $('#loancardTable thead:eq(2) tr').clone(true).appendTo('#loancardTable thead:eq(1)');
+        $('#loancardTable thead:eq(1) tr:eq(1) th').each(function (i) {
+
+
+            $(this).insertAfter($(this).siblings('#loancardTable thead:eq(1)'));
+
+            $(this).html('<input type="text" style="width: 5em"/>');
+
+            //$('input', this).on('keyup change', function () {
+            //    if (table.column(i).search() !== this.value) {
+            //        table
+            //            .column(i)
+            //            .search(this.value)
+            //            .draw();
+            //    }
+            //});
+            //$('input').each(function () {
+            //    $(this).width($(this).parent().width() - 20);
+            //});
+
+
+
+        });
+
+
+        $("#loancardTable thead:eq(2) tr:first-child").remove();
+
+
+        var table = $('#loancardTable').DataTable({
+
+            // Enable the searching
+            // of the DataTable
+            dom: 'Blfrtip'
+
+            , drawCallback: function () {
+                var api = this.api();
+                var sum = 0;
+                var formated = 0;
+                //to show first th
+                //$(api.column(0).footer()).html('Total');
+
+                for (var i = 0; i <= 9; i++) {
+                    // sum = api.column(i, { page: 'current' }).data().sum();
+                    if (i == 2 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7) {
+                        sum = api.column(i, { "filter": "applied" }).data().sum();
+
+
+                        //to format this sum
+                        formated = parseFloat(sum).toLocaleString(undefined, { minimumFractionDigits: 0 });
+                        $(api.column(i).header()).html('' + formated);
+                        /*$(api.column(i).footer()).html('' + formated);*/
+                    }
+                }
+
+                /* $('#loancardTable thead:eq(0) tr:eq(0) th:eq(0)').html('Total Entries : ' + api.column(3, { "filter": "applied" }).data().count())*/
+
+            },
+
+            buttons: [
+                {
+                    extend: 'excel',
+                    title: 'E',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                },
+                {
+                    extend: 'csv',
+                    title: 'E',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                },
+                {
+                    extend: 'pdf',
+                    title: 'E',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                },
+                {
+                    extend: 'print',
+                    title: 'E',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                },
+                {
+                    extend: 'colvis',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                }
+            ]
+
+            //,columnDefs: [{
+            //    targets: 1,
+            //    visible: false
+            //}]
+            , columnDefs: [
+                { targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], visible: true },
+                { targets: '_all', visible: false }
+            ]
+            ,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+
+        });
+
+
+    });
+
+
+</script>

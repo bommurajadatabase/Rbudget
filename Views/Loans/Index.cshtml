@@ -1,0 +1,236 @@
+﻿@model IEnumerable<E1.Loan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="loansTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                LoanName
+            </th>
+
+            <th>
+                Branch
+            </th>
+            <th>
+                Customer
+            </th>
+
+            <th>
+                Distri.Amount
+            </th>
+            <th>
+                NoOfDues
+            </th>
+            <th>
+                Distri.Date
+            </th>
+            @*<th>
+            FirstDueDate
+        </th>*@
+            @*<th>
+            OpeningBalance
+        </th>
+        <th>
+            InterestPercentage
+        </th>*@
+            <th>
+                EMIAmount
+            </th>
+
+
+            @*<th>
+            RepaymentType
+        </th>*@
+            <th>Action Details</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+                LoanName
+            </th>
+            <th>
+                Branch
+            </th>
+            <th>
+                Customer
+            </th>
+
+            <th>
+                Distri.Amount
+            </th>
+            <th>
+                NoOfDues
+            </th>
+            <th>
+                Distri.Date
+            </th>
+            @*<th>
+            FirstDueDate
+        </th>*@
+            @*<th>
+            OpeningBalance
+        </th>
+        <th>
+            InterestPercentage
+        </th>*@
+            <th>
+                EMIAmount
+            </th>
+
+
+            @*<th>
+            RepaymentType
+        </th>*@
+            <th>Action Details</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch.BranchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DistributdedAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoOfDues)
+                </td>
+                <td>
+                    @item.DistributdedDate.Value.ToString("dd-MMM-yyyy")
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.FirstDueDate)
+        </td>*@
+                @*<td>
+            @Html.DisplayFor(modelItem => item.OpeningBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterestPercentage)
+        </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMIAmount)
+                </td>
+
+
+                @*<td>
+            @Html.DisplayFor(modelItem => item.RepaymentType.RepaymentTypeName)
+        </td>*@
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.LoanId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.LoanId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.LoanId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style type="text/css">
+    tfoot {
+        display: table-row-group;
+    }
+</style>
+
+<script>
+
+    // Initialize the DataTable
+    $(document).ready(function () {
+        $('#loansTable tfoot tr').clone(true).appendTo('#loansTable tfoot');
+        $('#loansTable tfoot tr:eq(1) th').each(function (i) {
+
+
+            $(this).insertAfter($(this).siblings('#loansTable thead'));
+
+            $(this).html('<input type="text" placeholder="search"/>');
+
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+            $('input').each(function () {
+                $(this).width($(this).parent().width() - 20);
+            });
+
+
+
+        });
+
+
+        $("#loansTable tfoot tr:first-child").remove();
+
+        var table = $('#loansTable').DataTable({
+
+            // Enable the searching
+            // of the DataTable
+            dom: 'Blfrtip',
+            buttons: [
+                {
+                    extend: 'excel',
+                    title: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    title: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+            ],
+            columnDefs: [{
+                targets: 0,
+                visible: false
+            }],
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+
+        });
+
+
+    });
+
+
+</script>

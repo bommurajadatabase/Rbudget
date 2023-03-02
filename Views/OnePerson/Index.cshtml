@@ -1,0 +1,451 @@
+﻿@model List<E1.Models.LoanCardViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    tfoot {
+        display: table-header-group;
+    }
+
+    thead {
+        display: table-row-group
+    }
+
+    th {
+        border-top: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
+    }
+
+        th:first-child {
+            border-left: 1px solid #dddddd;
+        }
+
+    .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td {
+        border-top: 1px solid #dddddd !important;
+    }
+
+    .table tr th {
+        text-align: center !important;
+    }
+</style>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<br />
+<div class="form-group">
+    <div class="col-md-10">
+        <div class="col-md-3">
+            @Html.TextBox("CustomerNameSearch", null, new { @class = "form-control", @placeholder = "CustomerName" })
+            @Html.Hidden("CustomerId")
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("CustomerGuardianName", null, new { @class = "form-control", @placeholder = "Guardian Name" })
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("CustomerVillageName", null, new { @class = "form-control", @placeholder = "Village Name" })
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("CustomerMobileNumber", null, new { @class = "form-control", @placeholder = "Mobile Number" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary" onclick="ClearSearchValues()">Clear</button>
+    </div>
+
+</div>
+
+<br />
+<br />
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table id="OnePersonTable" class="table cell-border text-center">
+    @*<thead>
+
+            <tr>
+
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+
+            </tr>
+        </thead>*@
+    <thead class="text-center">
+        <tr class="text-center">
+           
+            <th class="text-center">
+                Due
+            </th>
+            <th class="text-center">
+             
+                    <input type="checkbox" id="isAllCollected" name="isAllCollected"  /> <span> All </span>
+
+              
+            </th>
+            <th class="text-center">
+                Collection Date
+            </th>
+            <th class="text-center">
+                Opening Balance
+            </th>
+            <th class="text-center">
+                Collection Amount
+            </th>
+
+            <th class="text-center">
+                Closing Balance
+            </th>
+
+
+
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var DataList = @Model.ToList();
+            <tr>
+              
+                <td>
+                    @(i+1)
+
+                </td>
+                <td>
+                    @{
+                        bool isCollection = false;
+                        if (DataList[i].IsCollected != null)
+                        {
+                            isCollection = Convert.ToBoolean(DataList[i].IsCollected);
+                        }
+                        <input type="checkbox" onclick="clickDueCollected(@DataList[i].LoanCardId,this)" id="DueCollected" class="checkboxes" />
+
+                    }
+                </td>
+                <td>
+                    @DataList[i].PlannedCollectionDate.Value.ToString("dd-MMM-yy")
+                </td>
+                <td>
+                    @DataList[i].OpeningBalance.Value.ToString("N0")
+                </td>
+                <td>
+                    @DataList[i].ImpactTransValue.Value.ToString("N0")
+                </td>
+                <td>
+                    @DataList[i].ClosingBalance.Value.ToString("N0")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="ConfirmOkayBox" title="Confirm">
+    Updated
+</div>
+<div id="ProcessBox" title="Process">
+    Processing...
+</div>
+<style type="text/css">
+    tfoot {
+        display: table-row-group;
+    }
+</style>
+
+<script>
+    $(function () {
+        $("#ConfirmOkayBox").dialog({
+            autoOpen: false,
+            buttons: [
+                {
+                    text: "Ok",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            ]
+        });
+        $("#ProcessBox").dialog({
+            autoOpen: false
+            //,buttons: [
+            //    {
+            //        text: "Ok",
+            //        click: function () {
+            //            $(this).dialog("close");
+            //        }
+            //    }
+            //]
+        });
+
+
+    });
+    function ClearSearchValues() {
+        $('#CustomerNameSearch').val('');
+        $('#CustomerId').val('');
+        $('#CustomerGuardianName').val('');
+        $('#CustomerVillageName').val('');
+        $('#CustomerMobileNumber').val('');
+    }
+    // Initialize the DataTable
+
+    function clickDueCollected(LoanCardId, thisid) {
+
+
+        let LoanCards = [];
+        LoanCards.push({
+            loanCardId: LoanCardId,
+            status: ($('#' + thisid).is(':checked'))
+        });
+
+        $("#ProcessBox").dialog("open");
+
+        $.ajax({
+            url: "/OnePerson/UpdateLoanCardIdStatus",
+            type: "POST",
+            data: JSON.stringify({ loancards: LoanCards }),
+            contentType: 'application/json',
+            success: function (data) {
+                $("#ProcessBox").dialog("close");
+               /* $("#ConfirmOkayBox").dialog("open");*/
+            }
+
+        })
+    }
+
+    $(document).ready(function () {
+
+
+
+
+
+        $('#isAllCollected').change(function () {
+            var LoanCards = [];
+                LoanCards.push({
+                    loanCardId: $('#CustomerId').val(),
+                    status: this.checked
+                });
+
+
+            $("#ProcessBox").dialog("open");
+
+            $.ajax({
+                url: "/OnePerson/UpdateAllLoanCardIdStatus",
+                type: "POST",
+                data: JSON.stringify({ loancards: LoanCards }),
+                contentType: 'application/json',
+                success: function (data) {
+                    $("#ProcessBox").dialog("close");
+
+                    /* $("#ConfirmOkayBox").dialog("open");*/
+                }
+
+            })
+            var Vmodel = @Html.Raw(Json.Encode(Model));
+            for (var i = 0; i < Vmodel.length; i++) {
+                //alert(Vmodel[i].PlannedCollectionDate);
+                var cout = i + 1;
+
+                var EditRow = $('#OnePersonTable tr:nth-child(' + cout + ') td:nth-child(3)').text();
+
+                var todayDate = new Date();
+                var rowDate = new Date(EditRow);
+                //var datatable = $("#CallRegisterTable").DataTable();
+                //Row to Edit
+                if (rowDate <= todayDate) {
+                    $("#OnePersonTable tbody tr:eq(" + i + ") td .checkboxes").prop("checked", this.checked);
+                }
+
+            }
+            // Check/uncheck checkboxes for all rows in the table
+            //$('input[type="checkbox"]', rows).prop('checked', this.checked);
+            // $('input[type=checkbox]').each(function () { checked = this.checked; });
+        });
+
+
+
+        $("#LoanCardFromDate").datepicker({
+            dateFormat: 'dd-M-yy'
+        });
+
+        $("#LoanCardToDate").datepicker({
+            dateFormat: 'dd-M-yy'
+        });
+
+        $("#CustomerNameSearch").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/OnePerson/SearchCustomer",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.CustomerName + '-' + item.CustomerId, value: item.CustomerName + '-' + item.CustomerId, data: item };
+                        }))
+                    }
+
+                })
+            },
+            select: function (event, ui) {
+
+                $('#CustomerId').val(ui.item.data.CustomerId);
+                $('#CustomerGuardianName').val(ui.item.data.GuardianName);
+                $('#CustomerVillageName').val(ui.item.data.BranchName);
+                $('#CustomerMobileNumber').val(ui.item.data.ContactNumber);
+
+                $.ajax({
+                    url: "/OnePerson/UpdateLoanCard?CustomerId=" + $('#CustomerId').val(),
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#OnePersonTable tbody tr").remove();
+                        $.each(data, function (i, item) {
+                            var ActualDate = new Date(parseInt(item.PlannedCollectionDate.substr(6)));
+                            var dat = ("0" + ActualDate.getDate()).slice(-2) + "-" + convertMonthValuetoText((ActualDate.getMonth() + 1)) + "-" + ActualDate.getFullYear().toString().substr(-2);
+                            var idValue = 'td' + i.toString();
+                            var $tr = $('<tr>').append(
+                                $('<td>').text(i + 1),
+                                //$('<td>').text(item.LoanCardId),
+                                /*  $('<td>').text(item.IsCollected),*/
+                                $('<td>').append(
+                                    $('<input />', {
+                                        type: 'checkbox',
+                                        class: 'checkboxes',                                        /**/
+                                        onclick: 'clickDueCollected(' + item.LoanCardId + ',' + i + ')',/**/
+                                        id: i,
+                                        checked: item.IsCollected,
+                                        value: item.LoanCardId
+                                    })),
+                                $('<td>').text(dat),
+                                $('<td>').text(item.OpeningBalance),
+                                $('<td>').text(item.ImpactTransValue),
+                                $('<td>').text(item.ClosingBalance)
+                            ); //.appendTo('#records_table');
+                            $("#OnePersonTable tbody").append($tr);
+                        });
+                        //datatable.clear().rows.add(newData).draw();
+                        //$('#OnePersonTable').dataTable().fnClearTable();
+                        //$('#OnePersonTable').dataTable().fnAddData(data);
+                        //$('#OnePersonTable').dataTable().rows.add(data); // Add new data
+                        //$('#OnePersonTable').columns.adjust().draw();
+                    }
+
+                })
+
+
+
+
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+        function convertMonthValuetoText(MonthInNumber) {
+
+            var month = "Jan";
+
+            var MonthInString = String(MonthInNumber);
+            if (MonthInString.length == 1) {
+                MonthInString = "0" + MonthInNumber;
+            }
+            switch (MonthInString) {
+
+                case "01":
+                    month = "Jan";
+                    break;
+                case "02":
+                    month = "Feb";
+                    break;
+                case "03":
+                    month = "Mar";
+                    break;
+                case "04":
+                    month = "Apr";
+                    break;
+                case "05":
+                    month = "May";
+                    break;
+                case "06":
+                    month = "Jun";
+                    break;
+                case "07":
+                    month = "Jul";
+                    break;
+                case "08":
+                    month = "Aug";
+                    break;
+                case "09":
+                    month = "Sep";
+                    break;
+                case "10":
+                    month = "Oct";
+                    break;
+                case "11":
+                    month = "Nov";
+                    break;
+                case "12":
+                    month = "Dec";
+                    break;
+                default:
+                    month = "Dec";
+                    break;
+            }
+            return month;
+        }
+
+        $('#OnePersonTable thead:eq(2) tr').clone(true).appendTo('#OnePersonTable thead:eq(1)');
+        //$('#OnePersonTable thead:eq(1) tr:eq(1) th').each(function (i) {
+
+
+        //    $(this).insertAfter($(this).siblings('#OnePersonTable thead:eq(1)'));
+
+        //    $(this).html('<input type="text" style="width: 5em"/>');
+
+        //$('input', this).on('keyup change', function () {
+        //    if (table.column(i).search() !== this.value) {
+        //        table
+        //            .column(i)
+        //            .search(this.value)
+        //            .draw();
+        //    }
+        //});
+        //$('input').each(function () {
+        //    $(this).width($(this).parent().width() - 20);
+        //});
+
+
+
+        //});
+
+
+        $("#OnePersonTable thead:eq(2) tr:first-child").remove();
+
+
+        var OnePersontable = $('#OnePersonTable').DataTable({
+            dom: 'Blfrtip'
+            , columnDefs: [
+                { targets: [0, 1, 2, 3, 4, 5, 6, 7, 8], visible: true },
+                { targets: '_all', visible: false }
+            ]
+            ,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+
+        });
+
+
+    });
+
+
+</script>

@@ -1,0 +1,303 @@
+﻿@model IEnumerable<E1.SP_WeeklyReport_Result>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    tfoot {
+        display: table-header-group;
+    }
+    thead {
+        display: table-row-group
+    }
+</style>
+
+@using (Html.BeginForm("Index", "Report", FormMethod.Post))
+{
+
+    @*<table cellpadding="0" cellspacing="0">
+        <tr>*@
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.TextBox("ReportFromDate", null, new { @class = "form-control", @placeholder = "ReportFromDate" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("ReportToDate", null, new { @class = "form-control", @placeholder = "ReportToDate" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Report" class="form-control btn-primary" />
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+
+    @*</tr>
+
+        </table>*@
+}
+<br />
+<br />
+<br />
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table id="reportTable" class="table">
+    <thead>
+
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <thead>
+
+        <tr>
+            <th>
+                BranchName
+            </th>
+            <th>
+                CollectionDetails
+            </th>
+
+            <th>
+                LeaderName
+            </th>
+            <th>
+                OpeningBalance
+            </th>
+            <th>
+                Collection
+            </th>
+
+            <th>
+                ClosingBalance
+            </th>
+        </tr>
+    </thead>
+
+    <thead>
+
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+
+            <th>
+            </th>
+        </tr>
+    </thead>
+
+
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.CollectionDetails)
+        </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.BranchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CollectionDetails)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaderName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpeningBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImpactTransValue)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClosingBalance)
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            @*<th>
+                    CollectionDetails
+                </th>*@
+            <th>
+                @*CollectionDetails*@
+            </th>
+            <th>
+                @*BranchName*@
+            </th>
+            <th>
+                @*LeaderName*@
+            </th>
+            <th>
+                @*OpeningBalance*@
+            </th>
+            <th>
+                @*ImpactTransValue*@
+            </th>
+
+            <th>
+                @*ClosingBalance*@
+            </th>
+        </tr>
+    </tfoot>
+</table>
+
+<style type="text/css">
+    tfoot {
+        display: table-row-group;
+    }
+</style>
+
+<script>
+
+    // Initialize the DataTable
+    $(document).ready(function () {
+
+        $("#ReportFromDate").datepicker({
+            dateFormat: 'dd-M-yy'
+        });
+
+        $("#ReportToDate").datepicker({
+            dateFormat: 'dd-M-yy'
+        });
+
+
+
+        $('#reportTable thead:eq(2) tr').clone(true).appendTo('#reportTable thead:eq(1)');
+        $('#reportTable thead:eq(1) tr:eq(1) th').each(function (i) {
+
+
+            $(this).insertAfter($(this).siblings('#reportTable thead:eq(1)'));
+
+            $(this).html('<input type="text" placeholder="search"/>');
+
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+            $('input').each(function () {
+                $(this).width($(this).parent().width() - 20);
+            });
+
+
+
+        });
+
+
+        $("#reportTable thead:eq(2) tr:first-child").remove();
+
+
+        var table = $('#reportTable').DataTable({
+
+            // Enable the searching
+            // of the DataTable
+            dom: 'Blfrtip'
+
+            , drawCallback: function () {
+                var api = this.api();
+                var sum = 0;
+                var formated = 0;
+                //to show first th
+                //$(api.column(0).footer()).html('Total');
+
+                for (var i = 3; i <= 5; i++) {
+                    // sum = api.column(i, { page: 'current' }).data().sum();
+                    sum = api.column(i, { "filter": "applied" }).data().sum();
+
+
+                    //to format this sum
+                    formated = parseFloat(sum).toLocaleString(undefined, { minimumFractionDigits: 0 });
+                    $(api.column(i).header()).html('' + formated);
+                    /*$(api.column(i).footer()).html('' + formated);*/
+                }
+
+                $('#reportTable thead:eq(0) tr:eq(0) th:eq(0)').html('Total Customers : ' + api.column(3, { "filter": "applied" }).data().count() )
+
+            },
+
+            buttons: [
+                {
+                    extend: 'excel',
+                    title: 'E',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                },
+                {
+                    extend: 'csv',
+                    title: 'E',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                },
+                {
+                    extend: 'pdf',
+                    title: 'E',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                },
+                {
+                    extend: 'print',
+                    title: 'E',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                },
+                {
+                    extend: 'colvis',
+                    exportOptions: {
+                        columns: ':visible'
+                    }, footer: true
+                }
+            ]
+
+            //,columnDefs: [{
+            //    targets: 1,
+            //    visible: false
+            //}]
+            , columnDefs: [
+                { targets: [0, 1, 2, 3, 4, 5], visible: true },
+                { targets: '_all', visible: false }
+            ]
+            ,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+
+        });
+
+
+    });
+
+
+</script>
+

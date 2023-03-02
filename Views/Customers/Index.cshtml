@@ -1,0 +1,169 @@
+﻿@model IEnumerable<E1.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="customersGrid" class="table">
+    <thead>
+        <tr>
+            <th>
+               CustomerName
+            </th>
+            <th>
+                GuardianName
+            </th>
+            <th>
+               ContactNumber
+            </th>
+            <th>
+               Branch
+            </th>
+            <th>Action Details</th>
+        </tr>
+
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+                CustomerName
+            </th>
+            <th>
+                GuardianName
+            </th>
+            <th>
+                ContactNumber
+            </th>
+            <th>
+                Branch
+            </th>
+            <th>Action Details</th>
+        </tr>
+
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GuardianName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch.BranchName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CustomerId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CustomerId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CustomerId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<style type="text/css">
+    tfoot {
+        display: table-row-group;
+    }
+</style>
+
+<script>
+
+    // Initialize the DataTable
+    $(document).ready(function () {
+        $('#customersGrid thead tr').clone(true).appendTo('#customersGrid tfoot');
+        $('#customersGrid tfoot tr:eq(1) th').each(function (i) {
+
+
+            $(this).insertAfter($(this).siblings('#customersGrid thead'));
+
+            $(this).html('<input type="text" placeholder="search"/>');
+
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+            $('input').each(function () {
+                $(this).width($(this).parent().width() - 20);
+            });
+
+
+
+        });
+
+
+        $("#customersGrid tfoot tr:first-child").remove();
+
+        var table = $('#customersGrid').DataTable({
+
+            // Enable the searching
+            // of the DataTable
+            dom: 'Blfrtip',
+            buttons: [
+                {
+                    extend: 'excel',
+                    title: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    title: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+            ]
+            //,columnDefs: [{
+            //    targets: 0,
+            //    visible: false
+            //}]
+            , columnDefs: [
+                { targets: [0, 1, 2, 3,4], visible: true },
+                { targets: '_all', visible: false }
+            ]
+            ,"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+
+        });
+
+
+    });
+
+
+</script>
