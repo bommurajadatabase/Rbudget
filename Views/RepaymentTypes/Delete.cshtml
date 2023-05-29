@@ -1,0 +1,64 @@
+﻿@model E1.RepaymentType
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>RepaymentType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RepaymentTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepaymentTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsMonthBased)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsMonthBased)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsWeekBased)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsWeekBased)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDaysBased)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDaysBased)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueCycleDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueCycleDays)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace E1.Models
+{
+    public class LoanViewModel
+    {
+        public LoanViewModel()
+        {
+            this.LoanDocuments = new HashSet<LoanDocument>();
+            this.LoanCards = new HashSet<LoanCard>();
+        }
+
+        public int LoanId { get; set; }
+        public string LoanName { get; set; }
+        public Nullable<int> BranchId { get; set; }
+        public Nullable<int> CustomerId { get; set; }
+        public Nullable<decimal> DistributdedAmount { get; set; }
+        public Nullable<System.DateTime> DistributdedDate { get; set; }
+        public Nullable<System.DateTime> FirstDueDate { get; set; }
+        public Nullable<decimal> OpeningBalance { get; set; }
+        public Nullable<decimal> InterestPercentage { get; set; }
+        public Nullable<decimal> EMIAmount { get; set; }
+        public Nullable<decimal> NoOfDues { get; set; }
+        public Nullable<int> RepaymentTypeId { get; set; }
+
+        public virtual Branch Branch { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual ICollection<LoanDocument> LoanDocuments { get; set; }
+        public virtual RepaymentType RepaymentType { get; set; }
+        public virtual ICollection<LoanCard> LoanCards { get; set; }
+
+        //Additional Fields
+        public bool CashFlow { get; set; }
+        public bool InterestType { get; set; }
+        public int StartDueNumber { get; set; }
+    }
+}

@@ -1,0 +1,111 @@
+﻿@model IEnumerable<E1.LoanCard>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LoanCardName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DueNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlannedCollectionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpeningBalance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImpactTransValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NonImpactTransValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClosingBalance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlannedCashAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualCashAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlannedProfitAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualProfitAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualCollectionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCollected)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Loan.LoanName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoanCardName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DueNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlannedCollectionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpeningBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImpactTransValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NonImpactTransValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClosingBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlannedCashAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualCashAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlannedProfitAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualProfitAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualCollectionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCollected)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Loan.LoanName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LoanCardId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LoanCardId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LoanCardId })
+        </td>
+    </tr>
+}
+
+</table>

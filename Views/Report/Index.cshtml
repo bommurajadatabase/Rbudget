@@ -176,9 +176,10 @@
 
 <script>
 
-    // Initialize the DataTable
+   
     $(document).ready(function () {
 
+        // Part 1 : Init date picker
         $("#ReportFromDate").datepicker({
             dateFormat: 'dd-M-yy'
         });
@@ -188,15 +189,11 @@
         });
 
 
-
+        // Part 2 : Column based search box
         $('#reportTable thead:eq(2) tr').clone(true).appendTo('#reportTable thead:eq(1)');
         $('#reportTable thead:eq(1) tr:eq(1) th').each(function (i) {
-
-
             $(this).insertAfter($(this).siblings('#reportTable thead:eq(1)'));
-
             $(this).html('<input type="text" placeholder="search"/>');
-
             $('input', this).on('keyup change', function () {
                 if (table.column(i).search() !== this.value) {
                     table
@@ -208,44 +205,23 @@
             $('input').each(function () {
                 $(this).width($(this).parent().width() - 20);
             });
-
-
-
         });
 
-
-        $("#reportTable thead:eq(2) tr:first-child").remove();
-
-
+        // Part 3 : Init datatable
         var table = $('#reportTable').DataTable({
-
-            // Enable the searching
-            // of the DataTable
             dom: 'Blfrtip'
-
             , drawCallback: function () {
                 var api = this.api();
                 var sum = 0;
                 var formated = 0;
-                //to show first th
-                //$(api.column(0).footer()).html('Total');
-
                 for (var i = 3; i <= 5; i++) {
-                    // sum = api.column(i, { page: 'current' }).data().sum();
                     sum = api.column(i, { "filter": "applied" }).data().sum();
-
-
-                    //to format this sum
                     formated = parseFloat(sum).toLocaleString(undefined, { minimumFractionDigits: 0 });
                     $(api.column(i).header()).html('' + formated);
-                    /*$(api.column(i).footer()).html('' + formated);*/
                 }
-
-                $('#reportTable thead:eq(0) tr:eq(0) th:eq(0)').html('Total Customers : ' + api.column(3, { "filter": "applied" }).data().count() )
-
-            },
-
-            buttons: [
+            $('#reportTable thead:eq(0) tr:eq(0) th:eq(0)').html('Total Customers : ' + api.column(3, { "filter": "applied" }).data().count() )
+            }
+            , buttons: [
                 {
                     extend: 'excel',
                     title: 'E',
@@ -281,23 +257,22 @@
                     }, footer: true
                 }
             ]
-
-            //,columnDefs: [{
-            //    targets: 1,
-            //    visible: false
-            //}]
             , columnDefs: [
                 { targets: [0, 1, 2, 3, 4, 5], visible: true },
                 { targets: '_all', visible: false }
             ]
-            ,
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-
+            ,"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         });
 
 
     });
 
-
+    $("input[name='statusradio']").change(function () {
+        var input = $("<input>")
+            .attr("type", "hidden")
+            .attr("name", "statusradio").val($(this).val());
+        $(this).closest("form").append(input);
+        $(this).closest("form").submit();
+    });
 </script>
 

@@ -1,0 +1,58 @@
+﻿@model E1.RepaymentType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RepaymentType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RepaymentTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepaymentTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsMonthBased)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsMonthBased)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsWeekBased)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsWeekBased)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDaysBased)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDaysBased)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueCycleDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueCycleDays)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RepaymentTypeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

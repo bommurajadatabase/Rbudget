@@ -10,89 +10,18 @@ using E1;
 
 namespace E1.Controllers
 {
-    public class LoanCardsController : Controller
+    public class LoanCardsEditController : Controller
     {
         private EEntities db = new EEntities();
 
-
-        // GET: LoanCards
-        public ActionResult Index(DateTime? LoanCardFromDate, DateTime? LoanCardToDate,string statusradio)
+        // GET: LoanCardsEdit
+        public ActionResult Index()
         {
-            string DatabaseName = "Z";
-            DatabaseName = db.Database.Connection.Database;
-            Session.Add("ApplicationName", DatabaseName);
-
-            ViewBag.statusradioallcount = 0;
-            ViewBag.statusradiopendingcount = 0;
-            ViewBag.statusradiocompletedcount = 0;
-
-            var loanCards = new List<LoanCard>();
-
-            if (LoanCardFromDate == null)
-            {
-                DateTime now = DateTime.Now;
-
-                switch (db.Database.Connection.Database)
-                {
-
-                    case "E":
-                        LoanCardFromDate = DateTime.Now.Date;
-                        LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddDays(6).Date;
-                        break;
-
-                    case "R":
-                        LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
-                        LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
-                        break;
-                    case "S":
-                        LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
-                        LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
-                        break;
-
-                    default:
-                        LoanCardFromDate = DateTime.Now.Date;
-                        LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddDays(6).Date;
-                        break;
-                }
-                loanCards = db.LoanCards.Include(l => l.Loan).Where(m=>m.PlannedCollectionDate>= LoanCardFromDate && m.PlannedCollectionDate<= LoanCardToDate).ToList();
-
-                ViewBag.statusradioallcount = loanCards.ToList().Count;
-                ViewBag.statusradiopendingcount = loanCards.Where(m=>m.IsCollected==false).ToList().Count;
-                ViewBag.statusradiocompletedcount = loanCards.Where(m => m.IsCollected == true).ToList().Count;
-
-                if (statusradio== "pending")
-                {
-                    loanCards = loanCards.Where(m => m.IsCollected == false).ToList();
-                }
-                if (statusradio == "completed")
-                {
-                    loanCards = loanCards.Where(m => m.IsCollected == true).ToList();
-
-                }
-
-            }
-            else
-            {
-                loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate).ToList();
-                if (statusradio == "pending")
-                {
-                    loanCards = loanCards.Where(m => m.IsCollected == false).ToList();
-                }
-                if (statusradio == "completed")
-                {
-                    loanCards = loanCards.Where(m => m.IsCollected == true).ToList();
-
-                }
-            }
-
-            ViewBag.statusradio = statusradio;
-            ViewBag.loanCardFromDate = Convert.ToDateTime(LoanCardFromDate).ToString("dd/MMM/yyyy"); ;
-            ViewBag.loanCardToDate = Convert.ToDateTime(LoanCardToDate).ToString("dd/MMM/yyyy"); ;
+            var loanCards = db.LoanCards.Include(l => l.Loan);
             return View(loanCards.ToList());
-
         }
 
-        // GET: LoanCards/Details/5
+        // GET: LoanCardsEdit/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -107,14 +36,14 @@ namespace E1.Controllers
             return View(loanCard);
         }
 
-        // GET: LoanCards/Create
+        // GET: LoanCardsEdit/Create
         public ActionResult Create()
         {
             ViewBag.LoanId = new SelectList(db.Loans, "LoanId", "LoanName");
             return View();
         }
 
-        // POST: LoanCards/Create
+        // POST: LoanCardsEdit/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -132,7 +61,7 @@ namespace E1.Controllers
             return View(loanCard);
         }
 
-        // GET: LoanCards/Edit/5
+        // GET: LoanCardsEdit/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -148,7 +77,7 @@ namespace E1.Controllers
             return View(loanCard);
         }
 
-        // POST: LoanCards/Edit/5
+        // POST: LoanCardsEdit/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -165,7 +94,7 @@ namespace E1.Controllers
             return View(loanCard);
         }
 
-        // GET: LoanCards/Delete/5
+        // GET: LoanCardsEdit/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -180,7 +109,7 @@ namespace E1.Controllers
             return View(loanCard);
         }
 
-        // POST: LoanCards/Delete/5
+        // POST: LoanCardsEdit/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

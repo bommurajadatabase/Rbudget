@@ -1,0 +1,57 @@
+﻿@model IEnumerable<E1.RepaymentType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RepaymentTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsMonthBased)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsWeekBased)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDaysBased)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DueCycleDays)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RepaymentTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsMonthBased)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsWeekBased)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDaysBased)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DueCycleDays)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RepaymentTypeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RepaymentTypeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RepaymentTypeId })
+        </td>
+    </tr>
+}
+
+</table>

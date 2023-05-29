@@ -4,9 +4,11 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Web.Mvc;
 using E1;
+using E1.Models;
 
 namespace E1.Controllers
 {
@@ -45,7 +47,8 @@ namespace E1.Controllers
             var CustomersList = db.Customers.Where(m => m.BranchId == db.Branches.FirstOrDefault().BranchId).ToList();
             ViewBag.CustomerId = new SelectList(CustomersList, "CustomerId", "CustomerName");
             ViewBag.RepaymentTypeId = new SelectList(db.RepaymentTypes, "RepaymentTypeId", "RepaymentTypeName");
-            return View();
+            LoanViewModel loanVM = new LoanViewModel();
+            return View(loanVM);
         }
 
         [HttpPost]
@@ -70,42 +73,194 @@ namespace E1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LoanId,LoanName,BranchId,CustomerId,DistributdedAmount,DistributdedDate,FirstDueDate,OpeningBalance,InterestPercentage,EMIAmount,NoOfDues,RepaymentTypeId")] Loan loan)
+        public ActionResult Create([Bind(Include = "LoanId,LoanName,BranchId,CustomerId,DistributdedAmount,DistributdedDate,FirstDueDate,OpeningBalance,InterestPercentage,EMIAmount,NoOfDues,RepaymentTypeId,CashFlow,InterestType,StartDueNumber")] LoanViewModel loanVM)
         {
             if (ModelState.IsValid)
             {
+                var loan = new Loan
+                {
+                    LoanId = loanVM.LoanId,
+                    LoanName = loanVM.LoanName,
+                    BranchId = loanVM.BranchId,
+                    CustomerId = loanVM.CustomerId,
+                    DistributdedAmount = loanVM.DistributdedAmount,
+                    DistributdedDate = loanVM.DistributdedDate,
+                    FirstDueDate = loanVM.FirstDueDate,
+                    InterestPercentage = loanVM.InterestPercentage,
+                    EMIAmount = loanVM.EMIAmount,
+                    NoOfDues = loanVM.NoOfDues,
+                    RepaymentTypeId = loanVM.RepaymentTypeId
+
+                };
                 db.Loans.Add(loan);
                 db.SaveChanges();
+                loanVM.LoanId = loan.LoanId;
 
                 // Loancard automatically insert logic
 
-                var NoOfDues = loan.NoOfDues;
-                var collectionDate = loan.FirstDueDate;
-                var openingBalance = loan.OpeningBalance;
-                var impactTransValue = loan.EMIAmount;
+                var NoOfDues = loanVM.NoOfDues;
+                var collectionDate = loanVM.FirstDueDate;
+                var openingBalance = loanVM.OpeningBalance;
+                var NonImpactTransValue = Convert.ToDecimal(0);
+                if (loanVM.InterestPercentage > 0)
+                {
+                    NonImpactTransValue = Convert.ToDecimal(openingBalance * (loanVM.InterestPercentage / 100));
+                }
+                var LogicSign = 1;
+                var EMISign = 1;
+              
 
-                for (int i = 0; i < NoOfDues; i++)
+                var StartDueNumber = 1;
+                if(loanVM.StartDueNumber>1)
+                {
+                    StartDueNumber=loanVM.StartDueNumber;
+                }
+
+                for (int i = StartDueNumber; i <= NoOfDues; i++)
                 {
                     var loancard = new LoanCard();
-                    loancard.LoanId = loan.LoanId;
-                    loancard.LoanCardName = loan.LoanName;
-                    loancard.DueNumber = i + 1;
-                    loancard.PlannedCollectionDate = collectionDate;
-                    loancard.OpeningBalance = openingBalance;
-                    loancard.ImpactTransValue = impactTransValue;
-                    loancard.NonImpactTransValue =0;
-                    loancard.ClosingBalance = openingBalance-impactTransValue;
-                    loancard.PlannedCashAccount = impactTransValue;
-                    loancard.ActualCashAccount = impactTransValue;
-                    loancard.PlannedProfitAccount = 0;
-                    loancard.ActualProfitAccount = 0;
+                    if (loanVM.InterestType)
+                    {
+                        NonImpactTransValue = Convert.ToDecimal(openingBalance * (loanVM.InterestPercentage / 100));
+                        if (NonImpactTransValue < 0)
+                        {
+                            LogicSign = -1;
+                            EMISign = 1;
+                        }
+                        else
+                        {
+                            LogicSign = 1;
+                            EMISign = -1;
+
+                        }
+                        //if(NonImpactTransValue== loanVM.EMIAmount)
+                        //{
+                        //    LogicSign = -1;
+                        //    EMISign = -1;
+                        //}
+                            loancard.ImpactTransValue = (loanVM.EMIAmount - ( NonImpactTransValue * LogicSign));
+                        loancard.NonImpactTransValue = NonImpactTransValue * LogicSign;
+
+                        //logic
+                        loancard.PlannedCollectionDate = collectionDate;
+                        //logic
+                        loancard.OpeningBalance = openingBalance;
+                      
+                        //logic
+                        if (LogicSign == 1)
+                        {
+                            loancard.ClosingBalance = loancard.OpeningBalance - loancard.ImpactTransValue;
+                        }
+                        if (LogicSign == -1)
+                        {
+                            loancard.ClosingBalance = loancard.OpeningBalance + loancard.ImpactTransValue;
+                        }
+
+                        loancard.ImpactTransValue = loancard.ImpactTransValue * EMISign;
+                        loancard.NonImpactTransValue = loancard.NonImpactTransValue * EMISign;
+                    }
+                    else
+                    {
+                        if (openingBalance != 1 && openingBalance > 1)
+                        {
+                            NonImpactTransValue = Convert.ToDecimal(openingBalance * (loanVM.InterestPercentage / 100));
+                            if (NonImpactTransValue < 0)
+                            {
+                                LogicSign = -1;
+                            }
+                            loancard.ImpactTransValue = (loanVM.EMIAmount + (NonImpactTransValue * LogicSign));
+                            loancard.NonImpactTransValue = NonImpactTransValue * LogicSign;
+
+                            //logic
+                            loancard.PlannedCollectionDate = collectionDate;
+                            //logic
+                            loancard.OpeningBalance = openingBalance;
+
+                            //logic
+                            if (LogicSign == 1)
+                            {
+                                loancard.ClosingBalance = loancard.OpeningBalance + loancard.ImpactTransValue;
+                            }
+                            if (LogicSign == -1)
+                            {
+                                loancard.ClosingBalance = loancard.OpeningBalance - loancard.ImpactTransValue;
+                            }
+                        }
+                        else
+                        {
+                            loancard.ImpactTransValue = Convert.ToDecimal(openingBalance * (loanVM.InterestPercentage / 100));
+                            if (loancard.ImpactTransValue <= 0)
+                            {
+                                LogicSign = -1;
+                            }
+                            loancard.NonImpactTransValue = (loanVM.EMIAmount + (loancard.ImpactTransValue * LogicSign));
+                            loancard.NonImpactTransValue = loancard.NonImpactTransValue * LogicSign;
+
+                            //logic
+                            loancard.PlannedCollectionDate = collectionDate;
+                            //logic
+                            loancard.OpeningBalance = openingBalance;
+
+                            //logic
+                            if (LogicSign == 1)
+                            {
+                                //loancard.ClosingBalance = loancard.OpeningBalance + loancard.ImpactTransValue;
+                                loancard.ClosingBalance = loancard.OpeningBalance + loanVM.EMIAmount;
+                            }
+                            if (LogicSign == -1)
+                            {
+                                loancard.ClosingBalance = loancard.OpeningBalance - loancard.ImpactTransValue;
+                            }
+                        }
+                    }
+                    
+                    loancard.LoanId = loanVM.LoanId;
+                    loancard.LoanCardName = loanVM.LoanName;
+                    loancard.DueNumber = i ;
+                    
+                    //logic
+                    var CashFlowSign = (loanVM.CashFlow)?1:-1;
+                    
+                    loancard.PlannedCashAccount = loanVM.EMIAmount * CashFlowSign;
+                    //logic
+                    loancard.ActualCashAccount = loanVM.EMIAmount * CashFlowSign;
+                    //logic
+                    if (openingBalance != 1)
+                    {
+                        loancard.PlannedProfitAccount = NonImpactTransValue;
+                        //logic
+                        loancard.ActualProfitAccount = NonImpactTransValue;
+                    }
+                    else
+                    {
+                        //Logic
+                        loancard.PlannedProfitAccount = loancard.NonImpactTransValue * CashFlowSign;
+                        //logic
+                        loancard.ActualProfitAccount = loancard.NonImpactTransValue * CashFlowSign;
+                    }
                     loancard.ActualCollectionDate = collectionDate;
                     loancard.IsCollected = false;
 
                     db.LoanCards.Add(loancard);
                     db.SaveChanges();
+                    var RepaymentType = db.RepaymentTypes.Where(m=>m.RepaymentTypeId==loanVM.RepaymentTypeId).FirstOrDefault();
+                    //logic
+                    if ((RepaymentType.IsWeekBased != null) ? Convert.ToBoolean(RepaymentType.IsWeekBased) : false)
+                    {
+                        collectionDate = collectionDate.Value.AddDays(7);
 
-                    collectionDate = collectionDate.Value.AddDays(7);
+                    }
+                    else if ((RepaymentType.IsMonthBased != null) ? Convert.ToBoolean(RepaymentType.IsMonthBased) : false)
+                    {
+                        collectionDate = collectionDate.Value.AddMonths(1);
+
+                    }
+                    else 
+                    {
+                        collectionDate = collectionDate.Value.AddDays(7);
+
+                    }
+                    //logic
                     openingBalance = loancard.ClosingBalance;
 
                 }
@@ -118,10 +273,10 @@ namespace E1.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BranchId = new SelectList(db.Branches, "BranchId", "BranchName", loan.BranchId);
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "CustomerName", loan.CustomerId);
-            ViewBag.RepaymentTypeId = new SelectList(db.RepaymentTypes, "RepaymentTypeId", "RepaymentTypeName", loan.RepaymentTypeId);
-            return View(loan);
+            //ViewBag.BranchId = new SelectList(db.Branches, "BranchId", "BranchName", loan.BranchId);
+            //ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "CustomerName", loan.CustomerId);
+            //ViewBag.RepaymentTypeId = new SelectList(db.RepaymentTypes, "RepaymentTypeId", "RepaymentTypeName", loan.RepaymentTypeId);
+            return RedirectToAction("Index");
         }
 
         // GET: Loans/Edit/5
@@ -182,6 +337,10 @@ namespace E1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Loan loan = db.Loans.Find(id);
+            List<LoanCard> loanCards = db.LoanCards.Where(s => s.LoanId == id).ToList();
+            db.LoanCards.RemoveRange(loanCards);
+            db.SaveChanges();
+
             db.Loans.Remove(loan);
             db.SaveChanges();
             return RedirectToAction("Index");

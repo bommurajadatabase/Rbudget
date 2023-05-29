@@ -16,7 +16,7 @@ namespace E1
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "OnePerson", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "LoanCards", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
