@@ -8,56 +8,56 @@
     thead {
         display: table-row-group
     }
-  
 </style>
 @using (Html.BeginForm("Index", "LoanCards", FormMethod.Post, new { id = "loanCardParamsForm" }))
 {
 
-<div class="form-group row">
-    <div class="col-md-2">
-        @Html.TextBox("LoanCardFromDate", null, new { @class = "form-control", @placeholder = "LoanCardFromDate" })
-    </div>
-    <div class="col-md-2">
-        @Html.TextBox("LoanCardToDate", null, new { @class = "form-control", @placeholder = "LoanCardToDate" })
-    </div>
-    <div class="col-md-2">
-        <input type="submit" value="Loan Card" class="form-control btn-success" />
-    </div>
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-2">
-        @Html.TextBox("OneAccountSearch", null, new { @class = "form-control", @placeholder = "One Account Search" })
+    <div class="form-group row">
+        <div class="col-md-2">
+            @Html.TextBox("LoanCardFromDate", null, new { @class = "form-control", @placeholder = "LoanCardFromDate" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("LoanCardToDate", null, new { @class = "form-control", @placeholder = "LoanCardToDate" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Loan Card" class="form-control btn-success" />
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("OneAccountSearch", null, new { @class = "form-control", @placeholder = "One Account Search" })
+            @Html.Hidden("HdnLoanId")
+            @Html.Hidden("HdnLoanName")
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="One Account" class="form-control btn-primary" />
+        </div>
 
     </div>
-    <div class="col-md-2">
-        <input type="submit" value="One Account" class="form-control btn-primary" />
-    </div>
-   
-</div>
-<div class="form-group row">
-    <div class="col-md-2">
-        <input type="button" id="statusbtnall" value="All (@ViewBag.statusradioallcount)" class="form-control" />
+    <div class="form-group row">
+        <div class="col-md-2">
+            <input type="button" id="statusbtnall" value="All (@ViewBag.statusradioallcount)" class="form-control" />
+
+        </div>
+        <div class="col-md-2">
+            <input type="button" id="statusbtnpending" value="Pending (@ViewBag.statusradiopendingcount)" class="form-control" />
+
+        </div>
+        <div class="col-md-2">
+            <input type="button" id="statusbtncompleted" value="Completed (@ViewBag.statusradiocompletedcount)" class="form-control" />
+
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+        </div>
 
     </div>
-    <div class="col-md-2">
-        <input type="button" id="statusbtnpending" value="Pending (@ViewBag.statusradiopendingcount)" class="form-control" />
-
-    </div>
-    <div class="col-md-2">
-        <input type="button" id="statusbtncompleted" value="Completed (@ViewBag.statusradiocompletedcount)" class="form-control" />
-
-    </div>
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-2">
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-    </div>
-
-</div>
 }
 
 <table id="loanCardsTable" class="table cell-border" style="width:100%">
@@ -176,7 +176,7 @@
             dateFormat: 'dd-M-yy'
         });
 
-        
+
 
         $('#loanCardsTable tfoot tr').clone(true).appendTo('#loanCardsTable tfoot');
         $('#loanCardsTable tfoot tr:eq(1) th').each(function (i) {
@@ -271,6 +271,33 @@
         $('#statusbtncompleted').click(function () {
 
             completedstatusbuttonclickevent();
+        });
+
+
+
+        //Auto complete part
+        $("#OneAccountSearch").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/LoanCards/SearchOneAccount",
+                    type: "POST",
+                    dataType: "json",
+                    data: { OneAccountName: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.LoanName, data: item };
+                        }))
+                    }
+
+                })
+            },
+            select: function (event, ui) {
+                $('#HdnLoanName').val(ui.item.data.LoanName);
+                $('#HdnLoanId').val(ui.item.data.LoanId);
+            },
+            messages: {
+                noResults: "", results: ""
+            }
         });
     });
 

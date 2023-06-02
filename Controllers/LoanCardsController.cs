@@ -16,82 +16,107 @@ namespace E1.Controllers
 
 
         // GET: LoanCards
-        public ActionResult Index(DateTime? LoanCardFromDate, DateTime? LoanCardToDate,string statusradio)
+        public ActionResult Index(DateTime? LoanCardFromDate, DateTime? LoanCardToDate,string statusradio,string HdnLoanId)
         {
             string DatabaseName = "Z";
             DatabaseName = db.Database.Connection.Database;
             Session.Add("ApplicationName", DatabaseName);
-
-            ViewBag.statusradioallcount = 0;
-            ViewBag.statusradiopendingcount = 0;
-            ViewBag.statusradiocompletedcount = 0;
-
             var loanCards = new List<LoanCard>();
-
-            if (LoanCardFromDate == null)
+            if (HdnLoanId == null)
             {
-                DateTime now = DateTime.Now;
+                ViewBag.statusradioallcount = 0;
+                ViewBag.statusradiopendingcount = 0;
+                ViewBag.statusradiocompletedcount = 0;
 
-                switch (db.Database.Connection.Database)
+                if (LoanCardFromDate == null)
                 {
+                    DateTime now = DateTime.Now;
 
-                    case "E":
-                        LoanCardFromDate = DateTime.Now.Date;
-                        LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddDays(6).Date;
-                        break;
+                    switch (db.Database.Connection.Database)
+                    {
 
-                    case "R":
-                        LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
-                        LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
-                        break;
-                    case "S":
-                        LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
-                        LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
-                        break;
+                        case "E":
+                            LoanCardFromDate = DateTime.Now.Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddDays(6).Date;
+                            break;
 
-                    default:
-                        LoanCardFromDate = DateTime.Now.Date;
-                        LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddDays(6).Date;
-                        break;
+                        case "R":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+                        case "S":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+
+                        default:
+                            LoanCardFromDate = DateTime.Now.Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddDays(6).Date;
+                            break;
+                    }
+                    loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate).ToList();
+
+                    ViewBag.statusradioallcount = loanCards.ToList().Count;
+                    ViewBag.statusradiopendingcount = loanCards.Where(m => m.IsCollected == false).ToList().Count;
+                    ViewBag.statusradiocompletedcount = loanCards.Where(m => m.IsCollected == true).ToList().Count;
+
+                    if (statusradio == "pending")
+                    {
+                        loanCards = loanCards.Where(m => m.IsCollected == false).ToList();
+                    }
+                    if (statusradio == "completed")
+                    {
+                        loanCards = loanCards.Where(m => m.IsCollected == true).ToList();
+
+                    }
+
                 }
-                loanCards = db.LoanCards.Include(l => l.Loan).Where(m=>m.PlannedCollectionDate>= LoanCardFromDate && m.PlannedCollectionDate<= LoanCardToDate).ToList();
-
-                ViewBag.statusradioallcount = loanCards.ToList().Count;
-                ViewBag.statusradiopendingcount = loanCards.Where(m=>m.IsCollected==false).ToList().Count;
-                ViewBag.statusradiocompletedcount = loanCards.Where(m => m.IsCollected == true).ToList().Count;
-
-                if (statusradio== "pending")
+                else
                 {
-                    loanCards = loanCards.Where(m => m.IsCollected == false).ToList();
-                }
-                if (statusradio == "completed")
-                {
-                    loanCards = loanCards.Where(m => m.IsCollected == true).ToList();
+                    loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate).ToList();
+                    if (statusradio == "pending")
+                    {
+                        loanCards = loanCards.Where(m => m.IsCollected == false).ToList();
+                    }
+                    if (statusradio == "completed")
+                    {
+                        loanCards = loanCards.Where(m => m.IsCollected == true).ToList();
 
+                    }
                 }
 
+                ViewBag.statusradio = statusradio;
+                ViewBag.loanCardFromDate = Convert.ToDateTime(LoanCardFromDate).ToString("dd-MMM-yyyy"); 
+                ViewBag.loanCardToDate = Convert.ToDateTime(LoanCardToDate).ToString("dd-MMM-yyyy");
             }
             else
             {
-                loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate).ToList();
-                if (statusradio == "pending")
-                {
-                    loanCards = loanCards.Where(m => m.IsCollected == false).ToList();
-                }
-                if (statusradio == "completed")
-                {
-                    loanCards = loanCards.Where(m => m.IsCollected == true).ToList();
-
-                }
+                ViewBag.statusradioallcount = 0;
+                ViewBag.statusradiopendingcount = 0;
+                ViewBag.statusradiocompletedcount = 0;
+                int hdnLoanId = 0;
+                hdnLoanId = Convert.ToInt32(HdnLoanId);
+                loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.LoanId == hdnLoanId).ToList();
             }
-
-            ViewBag.statusradio = statusradio;
-            ViewBag.loanCardFromDate = Convert.ToDateTime(LoanCardFromDate).ToString("dd/MMM/yyyy"); ;
-            ViewBag.loanCardToDate = Convert.ToDateTime(LoanCardToDate).ToString("dd/MMM/yyyy"); ;
             return View(loanCards.ToList());
 
         }
 
+
+        [HttpPost]
+        public JsonResult SearchOneAccount(string OneAccountName)
+        {
+
+            //Searching records from list using LINQ query  
+            var LoanCardDetails = (from N in db.Loans
+                        where (N.LoanName.ToLower().Contains(OneAccountName.ToLower()))
+                        select new
+                        {
+                            LoanName = N.LoanName
+                            ,LoanId = N.LoanId
+                        });
+            return Json(LoanCardDetails, JsonRequestBehavior.AllowGet);
+        }
         // GET: LoanCards/Details/5
         public ActionResult Details(int? id)
         {
