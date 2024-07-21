@@ -234,7 +234,7 @@ namespace E1.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LoanId = new SelectList(db.Loans, "LoanId", "LoanName", loanCard.LoanId);
+            ViewBag.LoanId = new SelectList(db.Loans, "LoanId", "LoanName", loanCard.LoanId) ;
             return View(loanCard);
         }
 
