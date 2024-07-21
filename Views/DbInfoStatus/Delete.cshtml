@@ -1,0 +1,56 @@
+﻿@model E1.DbInfoStatu
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DbInfoStatu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DbInfoStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DbInfoStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DbInfoName.DbInfoName1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DbInfoName.DbInfoName1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DbInfoPeriod.DbInfoPeriod1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DbInfoPeriod.DbInfoPeriod1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DbInfoType.DbInfoType1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DbInfoType.DbInfoType1)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

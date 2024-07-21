@@ -5,34 +5,40 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9e6042a6eeb24c4b9bbe4c603653f253" Name="Diagram1" ZoomLevel="90">
-        <EntityTypeShape EntityType="EModel.Branch" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.Customer" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.CustomerAddress" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.CustomerBank" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.Loan" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.LoanCard" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.LoanDocument" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.RepaymentType" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.Branch_B" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.Customer_B" Width="1.5" PointX="7.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.CustomerAddress_B" Width="1.5" PointX="7.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.CustomerBank_B" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.Loan_B" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.LoanCard_B" Width="1.5" PointX="5.75" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.LoanDocuments_B" Width="1.5" PointX="7.75" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="EModel.RepaymentType_B" Width="1.5" PointX="9.75" PointY="10" IsExpanded="true" />
-        <AssociationConnector Association="EModel.FK_Branch_Branch" ManuallyRouted="false" />
-        <AssociationConnector Association="EModel.FK_Customer_Branch" ManuallyRouted="false" />
-        <AssociationConnector Association="EModel.FK_Loan_Branch" ManuallyRouted="false" />
-        <AssociationConnector Association="EModel.FK_Bank_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="EModel.FK_CustomerAddress_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="EModel.FK_Loan_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="EModel.FK_Documents_Loan" ManuallyRouted="false" />
-        <AssociationConnector Association="EModel.FK_Loan_RepaymentType" ManuallyRouted="false" />
-        <AssociationConnector Association="EModel.FK_LoanCard_Loan" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="EModel.Leader" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EModel.DbInfoName" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="EModel.DbInfoPeriod" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="EModel.DbInfoType" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="EModel.Branch" Width="1.5" PointX="6" PointY="10.375" />
+        <EntityTypeShape EntityType="EModel.Customer" Width="1.5" PointX="8.25" PointY="10.5" />
+        <EntityTypeShape EntityType="EModel.CustomerAddress" Width="1.5" PointX="10.5" PointY="20.25" />
+        <EntityTypeShape EntityType="EModel.CustomerBank" Width="1.5" PointX="10.5" PointY="9.375" />
+        <EntityTypeShape EntityType="EModel.Leader" Width="1.5" PointX="3.75" PointY="11" />
+        <EntityTypeShape EntityType="EModel.Loan" Width="1.5" PointX="10.5" PointY="12.875" />
+        <EntityTypeShape EntityType="EModel.LoanCard" Width="1.5" PointX="12.75" PointY="14.375" />
+        <EntityTypeShape EntityType="EModel.LoanDocument" Width="1.5" PointX="12.75" PointY="11.375" />
+        <EntityTypeShape EntityType="EModel.RepaymentType" Width="1.5" PointX="3.75" PointY="4.75" />
+        <EntityTypeShape EntityType="EModel.Branch_B" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EModel.Customer_B" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="EModel.CustomerAddress_B" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="EModel.CustomerBank_B" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EModel.Loan_B" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="EModel.LoanCard_B" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EModel.LoanDocuments_B" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="EModel.RepaymentType_B" Width="1.5" PointX="9.75" PointY="5.75" />
+        <AssociationConnector Association="EModel.FK_Branch_Branch" />
         <AssociationConnector Association="EModel.FK_Branch_Leader" />
-      </Diagram>
+        <AssociationConnector Association="EModel.FK_Customer_Branch" />
+        <AssociationConnector Association="EModel.FK_Loan_Branch" />
+        <AssociationConnector Association="EModel.FK_Bank_Customer" />
+        <AssociationConnector Association="EModel.FK_CustomerAddress_Customer" />
+        <AssociationConnector Association="EModel.FK_Loan_Customer" />
+        <AssociationConnector Association="EModel.FK_Documents_Loan" />
+        <AssociationConnector Association="EModel.FK_LoanCard_Loan" />
+        <EntityTypeShape EntityType="EModel.DbInfoStatu" Width="1.5" PointX="12.75" PointY="8" />
+        <AssociationConnector Association="EModel.FK_DbInfoStatus_ELoanName" />
+        <AssociationConnector Association="EModel.FK_DbInfoStatus_DbInfoPeriod" />
+        <AssociationConnector Association="EModel.FK_DbInfoStatus_DbInfoType" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

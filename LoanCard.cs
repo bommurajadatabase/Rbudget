@@ -29,6 +29,7 @@ namespace E1
         public Nullable<decimal> ActualProfitAccount { get; set; }
         public Nullable<System.DateTime> ActualCollectionDate { get; set; }
         public Nullable<bool> IsCollected { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         public virtual Loan Loan { get; set; }
     }

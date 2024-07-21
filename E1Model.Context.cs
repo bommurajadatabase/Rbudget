@@ -27,10 +27,14 @@ namespace E1
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<DbInfoName> DbInfoNames { get; set; }
+        public virtual DbSet<DbInfoPeriod> DbInfoPeriods { get; set; }
+        public virtual DbSet<DbInfoType> DbInfoTypes { get; set; }
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; }
         public virtual DbSet<CustomerBank> CustomerBanks { get; set; }
+        public virtual DbSet<Leader> Leaders { get; set; }
         public virtual DbSet<Loan> Loans { get; set; }
         public virtual DbSet<LoanCard> LoanCards { get; set; }
         public virtual DbSet<LoanDocument> LoanDocuments { get; set; }
@@ -43,7 +47,7 @@ namespace E1
         public virtual DbSet<LoanCard_B> LoanCard_B { get; set; }
         public virtual DbSet<LoanDocuments_B> LoanDocuments_B { get; set; }
         public virtual DbSet<RepaymentType_B> RepaymentType_B { get; set; }
-        public virtual DbSet<Leader> Leaders { get; set; }
+        public virtual DbSet<DbInfoStatu> DbInfoStatus { get; set; }
     
         public virtual ObjectResult<SP_TodayCollectionDetails_Result> SP_TodayCollectionDetails(Nullable<System.DateTime> plannedCollectionDate, string branchName)
         {
@@ -108,6 +112,32 @@ namespace E1
                 new ObjectParameter("ReportToDate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_WeeklyReport_Branch_Result>("FunctionWeeklyReportBranch", reportFromDateParameter, reportToDateParameter);
+        }
+    
+        public virtual ObjectResult<SP_WeeklyReport_Backup08Oct_Result> SP_WeeklyReport_Backup08Oct(Nullable<System.DateTime> reportFromDate, Nullable<System.DateTime> reportToDate)
+        {
+            var reportFromDateParameter = reportFromDate.HasValue ?
+                new ObjectParameter("ReportFromDate", reportFromDate) :
+                new ObjectParameter("ReportFromDate", typeof(System.DateTime));
+    
+            var reportToDateParameter = reportToDate.HasValue ?
+                new ObjectParameter("ReportToDate", reportToDate) :
+                new ObjectParameter("ReportToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_WeeklyReport_Backup08Oct_Result>("SP_WeeklyReport_Backup08Oct", reportFromDateParameter, reportToDateParameter);
+        }
+    
+        public virtual int SP_WeeklyReport_Branch(Nullable<System.DateTime> reportFromDate, Nullable<System.DateTime> reportToDate)
+        {
+            var reportFromDateParameter = reportFromDate.HasValue ?
+                new ObjectParameter("ReportFromDate", reportFromDate) :
+                new ObjectParameter("ReportFromDate", typeof(System.DateTime));
+    
+            var reportToDateParameter = reportToDate.HasValue ?
+                new ObjectParameter("ReportToDate", reportToDate) :
+                new ObjectParameter("ReportToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_WeeklyReport_Branch", reportFromDateParameter, reportToDateParameter);
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model E1.DbInfoName
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DbInfoName</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DbInfoName1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DbInfoName1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DbInfoNameId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

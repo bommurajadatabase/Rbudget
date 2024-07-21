@@ -17,7 +17,7 @@
           <Property Name="ParentBranchId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'E.E.Branch_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'R.E.Branch_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Branch_B">
           <Key>
             <PropertyRef Name="BranchId" />
@@ -39,7 +39,7 @@ warning 6002: The table/view 'E.E.Branch_B' does not have a primary key defined.
           <Property Name="BranchId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'E.E.Customer_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'R.E.Customer_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Customer_B">
           <Key>
             <PropertyRef Name="CustomerId" />
@@ -60,7 +60,7 @@ warning 6002: The table/view 'E.E.Customer_B' does not have a primary key define
           <Property Name="CustomerId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'E.E.CustomerAddress_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'R.E.CustomerAddress_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerAddress_B">
           <Key>
             <PropertyRef Name="CustomerAddressId" />
@@ -82,7 +82,7 @@ warning 6002: The table/view 'E.E.CustomerAddress_B' does not have a primary key
           <Property Name="CustomerId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'E.E.CustomerBank_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'R.E.CustomerBank_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerBank_B">
           <Key>
             <PropertyRef Name="CustomerBankId" />
@@ -120,7 +120,7 @@ warning 6002: The table/view 'E.E.CustomerBank_B' does not have a primary key de
           <Property Name="RepaymentTypeId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'E.E.Loan_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'R.E.Loan_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Loan_B">
           <Key>
             <PropertyRef Name="LoanId" />
@@ -157,9 +157,10 @@ warning 6002: The table/view 'E.E.Loan_B' does not have a primary key defined. T
           <Property Name="ActualProfitAccount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ActualCollectionDate" Type="datetime" />
           <Property Name="IsCollected" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'E.E.LoanCard_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'R.E.LoanCard_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LoanCard_B">
           <Key>
             <PropertyRef Name="LoanCardId" />
@@ -191,7 +192,7 @@ warning 6002: The table/view 'E.E.LoanCard_B' does not have a primary key define
           <Property Name="LoanId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'E.E.LoanDocuments_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'R.E.LoanDocuments_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LoanDocuments_B">
           <Key>
             <PropertyRef Name="LoanDocumentsId" />
@@ -214,7 +215,7 @@ warning 6002: The table/view 'E.E.LoanDocuments_B' does not have a primary key d
           <Property Name="DueCycleDays" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'R.E.RepaymentType_B' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RepaymentType_B">
           <Key>
             <PropertyRef Name="RepaymentTypeId" />
@@ -225,6 +226,37 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="IsWeekBased" Type="bit" />
           <Property Name="IsDaysBased" Type="bit" />
           <Property Name="DueCycleDays" Type="int" />
+        </EntityType>
+        <EntityType Name="DbInfoName">
+          <Key>
+            <PropertyRef Name="DbInfoNameId" />
+          </Key>
+          <Property Name="DbInfoNameId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DbInfoName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DbInfoPeriod">
+          <Key>
+            <PropertyRef Name="DbInfoPeriodId" />
+          </Key>
+          <Property Name="DbInfoPeriodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DbInfoPeriod" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DbInfoStatus">
+          <Key>
+            <PropertyRef Name="DbInfoStatusId" />
+          </Key>
+          <Property Name="DbInfoStatusId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DbInfoTypeId" Type="int" />
+          <Property Name="DbInfoLoanId" Type="int" />
+          <Property Name="DbInfoPeriodId" Type="int" />
+          <Property Name="DbInfoStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="DbInfoType">
+          <Key>
+            <PropertyRef Name="DbInfoTypeId" />
+          </Key>
+          <Property Name="DbInfoTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DbInfoType" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Bank_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
@@ -286,6 +318,42 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DbInfoStatus_DbInfoPeriod">
+          <End Role="DbInfoPeriod" Type="Self.DbInfoPeriod" Multiplicity="0..1" />
+          <End Role="DbInfoStatus" Type="Self.DbInfoStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DbInfoPeriod">
+              <PropertyRef Name="DbInfoPeriodId" />
+            </Principal>
+            <Dependent Role="DbInfoStatus">
+              <PropertyRef Name="DbInfoPeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DbInfoStatus_DbInfoType">
+          <End Role="DbInfoType" Type="Self.DbInfoType" Multiplicity="0..1" />
+          <End Role="DbInfoStatus" Type="Self.DbInfoStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DbInfoType">
+              <PropertyRef Name="DbInfoTypeId" />
+            </Principal>
+            <Dependent Role="DbInfoStatus">
+              <PropertyRef Name="DbInfoTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DbInfoStatus_ELoanName">
+          <End Role="Loan" Type="Self.Loan" Multiplicity="0..1" />
+          <End Role="DbInfoStatus" Type="Self.DbInfoStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loan">
+              <PropertyRef Name="LoanId" />
+            </Principal>
+            <Dependent Role="DbInfoStatus">
+              <PropertyRef Name="DbInfoLoanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Documents_Loan">
           <End Role="Loan" Type="Self.Loan" Multiplicity="0..1" />
           <End Role="LoanDocuments" Type="Self.LoanDocuments" Multiplicity="*" />
@@ -322,18 +390,6 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Loan_RepaymentType">
-          <End Role="RepaymentType" Type="Self.RepaymentType" Multiplicity="0..1" />
-          <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RepaymentType">
-              <PropertyRef Name="RepaymentTypeId" />
-            </Principal>
-            <Dependent Role="Loan">
-              <PropertyRef Name="RepaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LoanCard_Loan">
           <End Role="Loan" Type="Self.Loan" Multiplicity="0..1" />
           <End Role="LoanCard" Type="Self.LoanCard" Multiplicity="*" />
@@ -358,6 +414,10 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Parameter Name="ReportFromDate" Type="datetime" Mode="In" />
           <Parameter Name="ReportToDate" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="SP_WeeklyReport_Branch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="E">
+          <Parameter Name="ReportFromDate" Type="datetime" Mode="In" />
+          <Parameter Name="ReportToDate" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="EModelStoreContainer">
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="E" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="E" store:Type="Tables" />
@@ -368,6 +428,10 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <EntitySet Name="LoanCard" EntityType="Self.LoanCard" Schema="E" store:Type="Tables" />
           <EntitySet Name="LoanDocuments" EntityType="Self.LoanDocuments" Schema="E" store:Type="Tables" />
           <EntitySet Name="RepaymentType" EntityType="Self.RepaymentType" Schema="E" store:Type="Tables" />
+          <EntitySet Name="DbInfoName" EntityType="Self.DbInfoName" Schema="R" store:Type="Tables" />
+          <EntitySet Name="DbInfoPeriod" EntityType="Self.DbInfoPeriod" Schema="R" store:Type="Tables" />
+          <EntitySet Name="DbInfoStatus" EntityType="Self.DbInfoStatus" Schema="R" store:Type="Tables" />
+          <EntitySet Name="DbInfoType" EntityType="Self.DbInfoType" Schema="R" store:Type="Tables" />
           <EntitySet Name="Branch_B" EntityType="Self.Branch_B" store:Type="Tables" store:Schema="E">
             <DefiningQuery>SELECT 
     [Branch_B].[BranchId] AS [BranchId], 
@@ -478,6 +542,18 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
             <End Role="Customer" EntitySet="Customer" />
             <End Role="CustomerAddress" EntitySet="CustomerAddress" />
           </AssociationSet>
+          <AssociationSet Name="FK_DbInfoStatus_DbInfoPeriod" Association="Self.FK_DbInfoStatus_DbInfoPeriod">
+            <End Role="DbInfoPeriod" EntitySet="DbInfoPeriod" />
+            <End Role="DbInfoStatus" EntitySet="DbInfoStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DbInfoStatus_DbInfoType" Association="Self.FK_DbInfoStatus_DbInfoType">
+            <End Role="DbInfoType" EntitySet="DbInfoType" />
+            <End Role="DbInfoStatus" EntitySet="DbInfoStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DbInfoStatus_ELoanName" Association="Self.FK_DbInfoStatus_ELoanName">
+            <End Role="Loan" EntitySet="Loan" />
+            <End Role="DbInfoStatus" EntitySet="DbInfoStatus" />
+          </AssociationSet>
           <AssociationSet Name="FK_Documents_Loan" Association="Self.FK_Documents_Loan">
             <End Role="Loan" EntitySet="Loan" />
             <End Role="LoanDocuments" EntitySet="LoanDocuments" />
@@ -490,10 +566,6 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Loan" EntitySet="Loan" />
           </AssociationSet>
-          <AssociationSet Name="FK_Loan_RepaymentType" Association="Self.FK_Loan_RepaymentType">
-            <End Role="RepaymentType" EntitySet="RepaymentType" />
-            <End Role="Loan" EntitySet="Loan" />
-          </AssociationSet>
           <AssociationSet Name="FK_LoanCard_Loan" Association="Self.FK_LoanCard_Loan">
             <End Role="Loan" EntitySet="Loan" />
             <End Role="LoanCard" EntitySet="LoanCard" />
@@ -503,21 +575,192 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="SP_TodayCollectionDetails" ReturnType="Collection(EModel.SP_TodayCollectionDetails_Result)">
+            <Parameter Name="PlannedCollectionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="BranchName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_WeekCollectionDetails" ReturnType="Collection(EModel.SP_WeekCollectionDetails_Result)">
+            <Parameter Name="PlannedCollectionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="BranchName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_WeeklyReport" ReturnType="Collection(EModel.SP_WeeklyReport_Result)">
+            <Parameter Name="ReportFromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ReportToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="FunctionWeeklyReport" ReturnType="Collection(EModel.SP_WeeklyReport_Result)">
+            <Parameter Name="ReportFromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ReportToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="FunctionWeeklyReportBranch" ReturnType="Collection(EModel.SP_WeeklyReport_Branch_Result)">
+            <Parameter Name="ReportFromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ReportToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_WeeklyReport_Backup08Oct" ReturnType="Collection(EModel.SP_WeeklyReport_Backup08Oct_Result)">
+            <Parameter Name="ReportFromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ReportToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_WeeklyReport_Branch">
+            <Parameter Name="ReportFromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ReportToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="DbInfoNames" EntityType="EModel.DbInfoName" />
+          <EntitySet Name="DbInfoPeriods" EntityType="EModel.DbInfoPeriod" />
+          <EntitySet Name="DbInfoTypes" EntityType="EModel.DbInfoType" />
+          <EntitySet Name="Branches" EntityType="EModel.Branch" />
+          <EntitySet Name="Customers" EntityType="EModel.Customer" />
+          <EntitySet Name="CustomerAddresses" EntityType="EModel.CustomerAddress" />
+          <EntitySet Name="CustomerBanks" EntityType="EModel.CustomerBank" />
+          <EntitySet Name="Leaders" EntityType="EModel.Leader" />
+          <EntitySet Name="Loans" EntityType="EModel.Loan" />
+          <EntitySet Name="LoanCards" EntityType="EModel.LoanCard" />
+          <EntitySet Name="LoanDocuments" EntityType="EModel.LoanDocument" />
+          <EntitySet Name="RepaymentTypes" EntityType="EModel.RepaymentType" />
+          <EntitySet Name="Branch_B" EntityType="EModel.Branch_B" />
+          <EntitySet Name="Customer_B" EntityType="EModel.Customer_B" />
+          <EntitySet Name="CustomerAddress_B" EntityType="EModel.CustomerAddress_B" />
+          <EntitySet Name="CustomerBank_B" EntityType="EModel.CustomerBank_B" />
+          <EntitySet Name="Loan_B" EntityType="EModel.Loan_B" />
+          <EntitySet Name="LoanCard_B" EntityType="EModel.LoanCard_B" />
+          <EntitySet Name="LoanDocuments_B" EntityType="EModel.LoanDocuments_B" />
+          <EntitySet Name="RepaymentType_B" EntityType="EModel.RepaymentType_B" />
+          <AssociationSet Name="FK_Branch_Branch" Association="EModel.FK_Branch_Branch">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Branch1" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Branch_Leader" Association="EModel.FK_Branch_Leader">
+            <End Role="Leader" EntitySet="Leaders" />
+            <End Role="Branch" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Branch" Association="EModel.FK_Customer_Branch">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loan_Branch" Association="EModel.FK_Loan_Branch">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Loan" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bank_Customer" Association="EModel.FK_Bank_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerBank" EntitySet="CustomerBanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerAddress_Customer" Association="EModel.FK_CustomerAddress_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loan_Customer" Association="EModel.FK_Loan_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Loan" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Loan" Association="EModel.FK_Documents_Loan">
+            <End Role="Loan" EntitySet="Loans" />
+            <End Role="LoanDocument" EntitySet="LoanDocuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanCard_Loan" Association="EModel.FK_LoanCard_Loan">
+            <End Role="Loan" EntitySet="Loans" />
+            <End Role="LoanCard" EntitySet="LoanCards" />
+          </AssociationSet>
+          <EntitySet Name="DbInfoStatus" EntityType="EModel.DbInfoStatu" />
+          <AssociationSet Name="FK_DbInfoStatus_ELoanName" Association="EModel.FK_DbInfoStatus_ELoanName">
+            <End Role="Loan" EntitySet="Loans" />
+            <End Role="DbInfoStatu" EntitySet="DbInfoStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DbInfoStatus_DbInfoPeriod" Association="EModel.FK_DbInfoStatus_DbInfoPeriod">
+            <End Role="DbInfoPeriod" EntitySet="DbInfoPeriods" />
+            <End Role="DbInfoStatu" EntitySet="DbInfoStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DbInfoStatus_DbInfoType" Association="EModel.FK_DbInfoStatus_DbInfoType">
+            <End Role="DbInfoType" EntitySet="DbInfoTypes" />
+            <End Role="DbInfoStatu" EntitySet="DbInfoStatus" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="SP_TodayCollectionDetails_Result">
+          <Property Type="DateTime" Name="PlannedCollectionDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
+          <Property Type="Int32" Name="DueNumber" Nullable="true" />
+          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SP_WeekCollectionDetails_Result">
+          <Property Type="String" Name="CollectionDetails" Nullable="false" MaxLength="4000" />
+          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="IsCollected" Nullable="true" />
+          <Property Type="Int32" Name="LoanCardId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_WeeklyReport_Result">
+          <Property Type="String" Name="CollectionDetails" Nullable="false" MaxLength="4000" />
+          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="IsCollected" Nullable="true" />
+          <Property Type="Int32" Name="LoanCardId" Nullable="false" />
+          <Property Type="String" Name="LeaderName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_WeeklyReport_Branch_Result">
+          <Property Type="String" Name="CollectionDetails" Nullable="false" MaxLength="4000" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="IsCollected" Nullable="true" />
+          <Property Type="Int32" Name="LoanCardId" Nullable="false" />
+          <Property Type="String" Name="LeaderName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_WeeklyReport_Backup08Oct_Result">
+          <Property Type="String" Name="CollectionDetails" Nullable="false" MaxLength="4000" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LeaderName" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Boolean" Name="IsCollected" Nullable="true" />
+          <Property Type="Int32" Name="LoanCardId" Nullable="false" />
+          <Property Type="Int32" Name="LoanId" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="DbInfoName">
+          <Key>
+            <PropertyRef Name="DbInfoNameId" />
+          </Key>
+          <Property Name="DbInfoNameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DbInfoName1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DbInfoPeriod">
+          <Key>
+            <PropertyRef Name="DbInfoPeriodId" />
+          </Key>
+          <Property Name="DbInfoPeriodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DbInfoPeriod1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DbInfoStatus" Relationship="EModel.FK_DbInfoStatus_DbInfoPeriod" FromRole="DbInfoPeriod" ToRole="DbInfoStatu" />
+        </EntityType>
+        <EntityType Name="DbInfoType">
+          <Key>
+            <PropertyRef Name="DbInfoTypeId" />
+          </Key>
+          <Property Name="DbInfoTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DbInfoType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DbInfoStatus" Relationship="EModel.FK_DbInfoStatus_DbInfoType" FromRole="DbInfoType" ToRole="DbInfoStatu" />
+        </EntityType>
         <EntityType Name="Branch">
           <Key>
             <PropertyRef Name="BranchId" />
           </Key>
           <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeaderId" Type="Int32" />
           <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddressLineOne" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AddressLineTwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ParentBranchId" Type="Int32" />
-          <NavigationProperty Name="Branch1" Relationship="Self.FK_Branch_Branch" FromRole="Branch" ToRole="Branch1" />
-          <NavigationProperty Name="Branch2" Relationship="Self.FK_Branch_Branch" FromRole="Branch1" ToRole="Branch" />
-          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Branch" FromRole="Branch" ToRole="Customer" />
-          <NavigationProperty Name="Loans" Relationship="Self.FK_Loan_Branch" FromRole="Branch" ToRole="Loan" />
-          <Property Name="LeaderId" Type="Int32" />
+          <NavigationProperty Name="Branch1" Relationship="EModel.FK_Branch_Branch" FromRole="Branch" ToRole="Branch1" />
+          <NavigationProperty Name="Branch2" Relationship="EModel.FK_Branch_Branch" FromRole="Branch1" ToRole="Branch" />
           <NavigationProperty Name="Leader" Relationship="EModel.FK_Branch_Leader" FromRole="Branch" ToRole="Leader" />
+          <NavigationProperty Name="Customers" Relationship="EModel.FK_Customer_Branch" FromRole="Branch" ToRole="Customer" />
+          <NavigationProperty Name="Loans" Relationship="EModel.FK_Loan_Branch" FromRole="Branch" ToRole="Loan" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -528,10 +771,10 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="GuardianName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ContactNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="BranchId" Type="Int32" />
-          <NavigationProperty Name="Branch" Relationship="Self.FK_Customer_Branch" FromRole="Customer" ToRole="Branch" />
-          <NavigationProperty Name="CustomerBanks" Relationship="Self.FK_Bank_Customer" FromRole="Customer" ToRole="CustomerBank" />
-          <NavigationProperty Name="CustomerAddresses" Relationship="Self.FK_CustomerAddress_Customer" FromRole="Customer" ToRole="CustomerAddress" />
-          <NavigationProperty Name="Loans" Relationship="Self.FK_Loan_Customer" FromRole="Customer" ToRole="Loan" />
+          <NavigationProperty Name="Branch" Relationship="EModel.FK_Customer_Branch" FromRole="Customer" ToRole="Branch" />
+          <NavigationProperty Name="CustomerBanks" Relationship="EModel.FK_Bank_Customer" FromRole="Customer" ToRole="CustomerBank" />
+          <NavigationProperty Name="CustomerAddresses" Relationship="EModel.FK_CustomerAddress_Customer" FromRole="Customer" ToRole="CustomerAddress" />
+          <NavigationProperty Name="Loans" Relationship="EModel.FK_Loan_Customer" FromRole="Customer" ToRole="Loan" />
         </EntityType>
         <EntityType Name="CustomerAddress">
           <Key>
@@ -541,7 +784,7 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="AddressLineOne" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AddressLineTwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CustomerId" Type="Int32" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerAddress_Customer" FromRole="CustomerAddress" ToRole="Customer" />
+          <NavigationProperty Name="Customer" Relationship="EModel.FK_CustomerAddress_Customer" FromRole="CustomerAddress" ToRole="Customer" />
         </EntityType>
         <EntityType Name="CustomerBank">
           <Key>
@@ -553,7 +796,16 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IFSCCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="CustomerId" Type="Int32" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Bank_Customer" FromRole="CustomerBank" ToRole="Customer" />
+          <NavigationProperty Name="Customer" Relationship="EModel.FK_Bank_Customer" FromRole="CustomerBank" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Leader">
+          <Key>
+            <PropertyRef Name="LeaderId" />
+          </Key>
+          <Property Name="LeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeaderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Branches" Relationship="EModel.FK_Branch_Leader" FromRole="Leader" ToRole="Branch" />
         </EntityType>
         <EntityType Name="Loan">
           <Key>
@@ -571,12 +823,12 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="EMIAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="NoOfDues" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="RepaymentTypeId" Type="Int32" />
-          <NavigationProperty Name="Branch" Relationship="Self.FK_Loan_Branch" FromRole="Loan" ToRole="Branch" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Loan_Customer" FromRole="Loan" ToRole="Customer" />
-          <NavigationProperty Name="LoanDocuments" Relationship="Self.FK_Documents_Loan" FromRole="Loan" ToRole="LoanDocuments" />
-          <NavigationProperty Name="RepaymentType" Relationship="Self.FK_Loan_RepaymentType" FromRole="Loan" ToRole="RepaymentType" />
-          <NavigationProperty Name="LoanCards" Relationship="Self.FK_LoanCard_Loan" FromRole="Loan" ToRole="LoanCard" />
-        </EntityType>
+          <NavigationProperty Name="Branch" Relationship="EModel.FK_Loan_Branch" FromRole="Loan" ToRole="Branch" />
+          <NavigationProperty Name="Customer" Relationship="EModel.FK_Loan_Customer" FromRole="Loan" ToRole="Customer" />
+          <NavigationProperty Name="LoanDocuments" Relationship="EModel.FK_Documents_Loan" FromRole="Loan" ToRole="LoanDocument" />
+          <NavigationProperty Name="LoanCards" Relationship="EModel.FK_LoanCard_Loan" FromRole="Loan" ToRole="LoanCard" />
+          <NavigationProperty Name="DbInfoStatus" Relationship="EModel.FK_DbInfoStatus_ELoanName" FromRole="Loan" ToRole="DbInfoStatu" />
+          </EntityType>
         <EntityType Name="LoanCard">
           <Key>
             <PropertyRef Name="LoanCardId" />
@@ -596,7 +848,8 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="ActualProfitAccount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ActualCollectionDate" Type="DateTime" Precision="3" />
           <Property Name="IsCollected" Type="Boolean" />
-          <NavigationProperty Name="Loan" Relationship="Self.FK_LoanCard_Loan" FromRole="LoanCard" ToRole="Loan" />
+          <NavigationProperty Name="Loan" Relationship="EModel.FK_LoanCard_Loan" FromRole="LoanCard" ToRole="Loan" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="LoanDocument">
           <Key>
@@ -607,7 +860,7 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="AadhaarCardPath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsAadhaarCardCollected" Type="Boolean" />
           <Property Name="LoanId" Type="Int32" />
-          <NavigationProperty Name="Loan" Relationship="Self.FK_Documents_Loan" FromRole="LoanDocuments" ToRole="Loan" />
+          <NavigationProperty Name="Loan" Relationship="EModel.FK_Documents_Loan" FromRole="LoanDocument" ToRole="Loan" />
         </EntityType>
         <EntityType Name="RepaymentType">
           <Key>
@@ -619,7 +872,6 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="IsWeekBased" Type="Boolean" />
           <Property Name="IsDaysBased" Type="Boolean" />
           <Property Name="DueCycleDays" Type="Int32" />
-          <NavigationProperty Name="Loans" Relationship="Self.FK_Loan_RepaymentType" FromRole="RepaymentType" ToRole="Loan" />
         </EntityType>
         <EntityType Name="Branch_B">
           <Key>
@@ -720,8 +972,8 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
           <Property Name="DueCycleDays" Type="Int32" />
         </EntityType>
         <Association Name="FK_Branch_Branch">
-          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
-          <End Role="Branch1" Type="Self.Branch" Multiplicity="*" />
+          <End Type="EModel.Branch" Role="Branch" Multiplicity="0..1" />
+          <End Type="EModel.Branch" Role="Branch1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Branch">
               <PropertyRef Name="BranchId" />
@@ -731,228 +983,6 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Customer_Branch">
-          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
-          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Branch">
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="Customer">
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Loan_Branch">
-          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
-          <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Branch">
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="Loan">
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bank_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="CustomerBank" Type="Self.CustomerBank" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="CustomerBank">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerAddress_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="CustomerAddress">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Loan_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="Loan">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documents_Loan">
-          <End Role="Loan" Type="Self.Loan" Multiplicity="0..1" />
-          <End Role="LoanDocuments" Type="Self.LoanDocument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Loan">
-              <PropertyRef Name="LoanId" />
-            </Principal>
-            <Dependent Role="LoanDocuments">
-              <PropertyRef Name="LoanId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Loan_RepaymentType">
-          <End Role="RepaymentType" Type="Self.RepaymentType" Multiplicity="0..1" />
-          <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RepaymentType">
-              <PropertyRef Name="RepaymentTypeId" />
-            </Principal>
-            <Dependent Role="Loan">
-              <PropertyRef Name="RepaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LoanCard_Loan">
-          <End Role="Loan" Type="Self.Loan" Multiplicity="0..1" />
-          <End Role="LoanCard" Type="Self.LoanCard" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Loan">
-              <PropertyRef Name="LoanId" />
-            </Principal>
-            <Dependent Role="LoanCard">
-              <PropertyRef Name="LoanId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="EEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Branches" EntityType="Self.Branch" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="CustomerAddresses" EntityType="Self.CustomerAddress" />
-          <EntitySet Name="CustomerBanks" EntityType="Self.CustomerBank" />
-          <EntitySet Name="Loans" EntityType="Self.Loan" />
-          <EntitySet Name="LoanCards" EntityType="Self.LoanCard" />
-          <EntitySet Name="LoanDocuments" EntityType="Self.LoanDocument" />
-          <EntitySet Name="RepaymentTypes" EntityType="Self.RepaymentType" />
-          <EntitySet Name="Branch_B" EntityType="Self.Branch_B" />
-          <EntitySet Name="Customer_B" EntityType="Self.Customer_B" />
-          <EntitySet Name="CustomerAddress_B" EntityType="Self.CustomerAddress_B" />
-          <EntitySet Name="CustomerBank_B" EntityType="Self.CustomerBank_B" />
-          <EntitySet Name="Loan_B" EntityType="Self.Loan_B" />
-          <EntitySet Name="LoanCard_B" EntityType="Self.LoanCard_B" />
-          <EntitySet Name="LoanDocuments_B" EntityType="Self.LoanDocuments_B" />
-          <EntitySet Name="RepaymentType_B" EntityType="Self.RepaymentType_B" />
-          <AssociationSet Name="FK_Branch_Branch" Association="Self.FK_Branch_Branch">
-            <End Role="Branch" EntitySet="Branches" />
-            <End Role="Branch1" EntitySet="Branches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Customer_Branch" Association="Self.FK_Customer_Branch">
-            <End Role="Branch" EntitySet="Branches" />
-            <End Role="Customer" EntitySet="Customers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Loan_Branch" Association="Self.FK_Loan_Branch">
-            <End Role="Branch" EntitySet="Branches" />
-            <End Role="Loan" EntitySet="Loans" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bank_Customer" Association="Self.FK_Bank_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="CustomerBank" EntitySet="CustomerBanks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerAddress_Customer" Association="Self.FK_CustomerAddress_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Loan_Customer" Association="Self.FK_Loan_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Loan" EntitySet="Loans" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documents_Loan" Association="Self.FK_Documents_Loan">
-            <End Role="Loan" EntitySet="Loans" />
-            <End Role="LoanDocuments" EntitySet="LoanDocuments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Loan_RepaymentType" Association="Self.FK_Loan_RepaymentType">
-            <End Role="RepaymentType" EntitySet="RepaymentTypes" />
-            <End Role="Loan" EntitySet="Loans" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LoanCard_Loan" Association="Self.FK_LoanCard_Loan">
-            <End Role="Loan" EntitySet="Loans" />
-            <End Role="LoanCard" EntitySet="LoanCards" />
-          </AssociationSet>
-          <FunctionImport Name="SP_TodayCollectionDetails" ReturnType="Collection(EModel.SP_TodayCollectionDetails_Result)">
-            <Parameter Name="PlannedCollectionDate" Mode="In" Type="DateTime" />
-            <Parameter Name="BranchName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_WeekCollectionDetails" ReturnType="Collection(EModel.SP_WeekCollectionDetails_Result)">
-            <Parameter Name="PlannedCollectionDate" Mode="In" Type="DateTime" />
-            <Parameter Name="BranchName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_WeeklyReport" ReturnType="Collection(EModel.SP_WeeklyReport_Result)">
-            <Parameter Name="ReportFromDate" Mode="In" Type="DateTime" />
-            <Parameter Name="ReportToDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="FunctionWeeklyReport" ReturnType="Collection(EModel.SP_WeeklyReport_Result)">
-            <Parameter Name="ReportFromDate" Mode="In" Type="DateTime" />
-            <Parameter Name="ReportToDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="FunctionWeeklyReportBranch" ReturnType="Collection(EModel.SP_WeeklyReport_Branch_Result)">
-            <Parameter Name="ReportFromDate" Mode="In" Type="DateTime" />
-            <Parameter Name="ReportToDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <EntitySet Name="Leaders" EntityType="EModel.Leader" />
-          <AssociationSet Name="FK_Branch_Leader" Association="EModel.FK_Branch_Leader">
-            <End Role="Leader" EntitySet="Leaders" />
-            <End Role="Branch" EntitySet="Branches" />
-          </AssociationSet>
-        </EntityContainer>
-        <ComplexType Name="SP_TodayCollectionDetails_Result">
-          <Property Type="DateTime" Name="PlannedCollectionDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="CustomerId" Nullable="false" />
-          <Property Type="Int32" Name="DueNumber" Nullable="true" />
-          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="18" Scale="2" />
-        </ComplexType>
-        <ComplexType Name="SP_WeekCollectionDetails_Result">
-          <Property Type="String" Name="CollectionDetails" Nullable="false" MaxLength="4000" />
-          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="IsCollected" Nullable="true" />
-          <Property Type="Int32" Name="LoanCardId" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="SP_WeeklyReport_Result">
-          <Property Type="String" Name="CollectionDetails" Nullable="false" MaxLength="4000" />
-          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="IsCollected" Nullable="true" />
-          <Property Type="Int32" Name="LoanCardId" Nullable="false" />
-          <Property Type="String" Name="LeaderName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="SP_WeeklyReport_Branch_Result">
-          <Property Type="String" Name="CollectionDetails" Nullable="false" MaxLength="4000" />
-          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="ImpactTransValue" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="ClosingBalance" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="IsCollected" Nullable="true" />
-          <Property Type="Int32" Name="LoanCardId" Nullable="false" />
-          <Property Type="String" Name="LeaderName" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <EntityType Name="Leader">
-          <Key>
-            <PropertyRef Name="LeaderId" />
-          </Key>
-          <Property Name="LeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LeaderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Branches" Relationship="EModel.FK_Branch_Leader" FromRole="Leader" ToRole="Branch" />
-        </EntityType>
         <Association Name="FK_Branch_Leader">
           <End Type="EModel.Leader" Role="Leader" Multiplicity="0..1" />
           <End Type="EModel.Branch" Role="Branch" Multiplicity="*" />
@@ -965,225 +995,145 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Customer_Branch">
+          <End Type="EModel.Branch" Role="Branch" Multiplicity="0..1" />
+          <End Type="EModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loan_Branch">
+          <End Type="EModel.Branch" Role="Branch" Multiplicity="0..1" />
+          <End Type="EModel.Loan" Role="Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bank_Customer">
+          <End Type="EModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="EModel.CustomerBank" Role="CustomerBank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerBank">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerAddress_Customer">
+          <End Type="EModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="EModel.CustomerAddress" Role="CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loan_Customer">
+          <End Type="EModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="EModel.Loan" Role="Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Loan">
+          <End Type="EModel.Loan" Role="Loan" Multiplicity="0..1" />
+          <End Type="EModel.LoanDocument" Role="LoanDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loan">
+              <PropertyRef Name="LoanId" />
+            </Principal>
+            <Dependent Role="LoanDocument">
+              <PropertyRef Name="LoanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanCard_Loan">
+          <End Type="EModel.Loan" Role="Loan" Multiplicity="0..1" />
+          <End Type="EModel.LoanCard" Role="LoanCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loan">
+              <PropertyRef Name="LoanId" />
+            </Principal>
+            <Dependent Role="LoanCard">
+              <PropertyRef Name="LoanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DbInfoStatu">
+          <Key>
+            <PropertyRef Name="DbInfoStatusId" />
+          </Key>
+          <Property Name="DbInfoStatusId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DbInfoTypeId" Type="Int32" />
+          <Property Name="DbInfoLoanId" Type="Int32" />
+          <Property Name="DbInfoPeriodId" Type="Int32" />
+          <Property Name="DbInfoStatus" Type="Boolean" />
+          <NavigationProperty Name="Loan" Relationship="EModel.FK_DbInfoStatus_ELoanName" FromRole="DbInfoStatu" ToRole="Loan" />
+          <NavigationProperty Name="DbInfoPeriod" Relationship="EModel.FK_DbInfoStatus_DbInfoPeriod" FromRole="DbInfoStatu" ToRole="DbInfoPeriod" />
+          <NavigationProperty Name="DbInfoType" Relationship="EModel.FK_DbInfoStatus_DbInfoType" FromRole="DbInfoStatu" ToRole="DbInfoType" />
+        </EntityType>
+        <Association Name="FK_DbInfoStatus_ELoanName">
+          <End Type="EModel.Loan" Role="Loan" Multiplicity="0..1" />
+          <End Type="EModel.DbInfoStatu" Role="DbInfoStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loan">
+              <PropertyRef Name="LoanId" />
+            </Principal>
+            <Dependent Role="DbInfoStatu">
+              <PropertyRef Name="DbInfoLoanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DbInfoStatus_DbInfoPeriod">
+          <End Type="EModel.DbInfoPeriod" Role="DbInfoPeriod" Multiplicity="0..1" />
+          <End Type="EModel.DbInfoStatu" Role="DbInfoStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DbInfoPeriod">
+              <PropertyRef Name="DbInfoPeriodId" />
+            </Principal>
+            <Dependent Role="DbInfoStatu">
+              <PropertyRef Name="DbInfoPeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DbInfoStatus_DbInfoType">
+          <End Type="EModel.DbInfoType" Role="DbInfoType" Multiplicity="0..1" />
+          <End Type="EModel.DbInfoStatu" Role="DbInfoStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DbInfoType">
+              <PropertyRef Name="DbInfoTypeId" />
+            </Principal>
+            <Dependent Role="DbInfoStatu">
+              <PropertyRef Name="DbInfoTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="EModelStoreContainer" CdmEntityContainer="EEntities">
-          <EntitySetMapping Name="Branches">
-            <EntityTypeMapping TypeName="EModel.Branch">
-              <MappingFragment StoreEntitySet="Branch">
-                <ScalarProperty Name="LeaderId" ColumnName="LeaderId" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
-                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
-                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
-                <ScalarProperty Name="ParentBranchId" ColumnName="ParentBranchId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="EModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
-                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerAddresses">
-            <EntityTypeMapping TypeName="EModel.CustomerAddress">
-              <MappingFragment StoreEntitySet="CustomerAddress">
-                <ScalarProperty Name="CustomerAddressId" ColumnName="CustomerAddressId" />
-                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
-                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerBanks">
-            <EntityTypeMapping TypeName="EModel.CustomerBank">
-              <MappingFragment StoreEntitySet="CustomerBank">
-                <ScalarProperty Name="CustomerBankId" ColumnName="CustomerBankId" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
-                <ScalarProperty Name="IFSCCode" ColumnName="IFSCCode" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Loans">
-            <EntityTypeMapping TypeName="EModel.Loan">
-              <MappingFragment StoreEntitySet="Loan">
-                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
-                <ScalarProperty Name="LoanName" ColumnName="LoanName" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="DistributdedAmount" ColumnName="DistributdedAmount" />
-                <ScalarProperty Name="DistributdedDate" ColumnName="DistributdedDate" />
-                <ScalarProperty Name="FirstDueDate" ColumnName="FirstDueDate" />
-                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
-                <ScalarProperty Name="InterestPercentage" ColumnName="InterestPercentage" />
-                <ScalarProperty Name="EMIAmount" ColumnName="EMIAmount" />
-                <ScalarProperty Name="NoOfDues" ColumnName="NoOfDues" />
-                <ScalarProperty Name="RepaymentTypeId" ColumnName="RepaymentTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LoanCards">
-            <EntityTypeMapping TypeName="EModel.LoanCard">
-              <MappingFragment StoreEntitySet="LoanCard">
-                <ScalarProperty Name="LoanCardId" ColumnName="LoanCardId" />
-                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
-                <ScalarProperty Name="LoanCardName" ColumnName="LoanCardName" />
-                <ScalarProperty Name="DueNumber" ColumnName="DueNumber" />
-                <ScalarProperty Name="PlannedCollectionDate" ColumnName="PlannedCollectionDate" />
-                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
-                <ScalarProperty Name="ImpactTransValue" ColumnName="ImpactTransValue" />
-                <ScalarProperty Name="NonImpactTransValue" ColumnName="NonImpactTransValue" />
-                <ScalarProperty Name="ClosingBalance" ColumnName="ClosingBalance" />
-                <ScalarProperty Name="PlannedCashAccount" ColumnName="PlannedCashAccount" />
-                <ScalarProperty Name="ActualCashAccount" ColumnName="ActualCashAccount" />
-                <ScalarProperty Name="PlannedProfitAccount" ColumnName="PlannedProfitAccount" />
-                <ScalarProperty Name="ActualProfitAccount" ColumnName="ActualProfitAccount" />
-                <ScalarProperty Name="ActualCollectionDate" ColumnName="ActualCollectionDate" />
-                <ScalarProperty Name="IsCollected" ColumnName="IsCollected" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LoanDocuments">
-            <EntityTypeMapping TypeName="EModel.LoanDocument">
-              <MappingFragment StoreEntitySet="LoanDocuments">
-                <ScalarProperty Name="LoanDocumentsId" ColumnName="LoanDocumentsId" />
-                <ScalarProperty Name="AadhaarCardNumber" ColumnName="AadhaarCardNumber" />
-                <ScalarProperty Name="AadhaarCardPath" ColumnName="AadhaarCardPath" />
-                <ScalarProperty Name="IsAadhaarCardCollected" ColumnName="IsAadhaarCardCollected" />
-                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RepaymentTypes">
-            <EntityTypeMapping TypeName="EModel.RepaymentType">
-              <MappingFragment StoreEntitySet="RepaymentType">
-                <ScalarProperty Name="RepaymentTypeId" ColumnName="RepaymentTypeId" />
-                <ScalarProperty Name="RepaymentTypeName" ColumnName="RepaymentTypeName" />
-                <ScalarProperty Name="IsMonthBased" ColumnName="IsMonthBased" />
-                <ScalarProperty Name="IsWeekBased" ColumnName="IsWeekBased" />
-                <ScalarProperty Name="IsDaysBased" ColumnName="IsDaysBased" />
-                <ScalarProperty Name="DueCycleDays" ColumnName="DueCycleDays" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Branch_B">
-            <EntityTypeMapping TypeName="EModel.Branch_B">
-              <MappingFragment StoreEntitySet="Branch_B">
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
-                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
-                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
-                <ScalarProperty Name="ParentBranchId" ColumnName="ParentBranchId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customer_B">
-            <EntityTypeMapping TypeName="EModel.Customer_B">
-              <MappingFragment StoreEntitySet="Customer_B">
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
-                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerAddress_B">
-            <EntityTypeMapping TypeName="EModel.CustomerAddress_B">
-              <MappingFragment StoreEntitySet="CustomerAddress_B">
-                <ScalarProperty Name="CustomerAddressId" ColumnName="CustomerAddressId" />
-                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
-                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerBank_B">
-            <EntityTypeMapping TypeName="EModel.CustomerBank_B">
-              <MappingFragment StoreEntitySet="CustomerBank_B">
-                <ScalarProperty Name="CustomerBankId" ColumnName="CustomerBankId" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
-                <ScalarProperty Name="IFSCCode" ColumnName="IFSCCode" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Loan_B">
-            <EntityTypeMapping TypeName="EModel.Loan_B">
-              <MappingFragment StoreEntitySet="Loan_B">
-                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
-                <ScalarProperty Name="LoanName" ColumnName="LoanName" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="DistributdedAmount" ColumnName="DistributdedAmount" />
-                <ScalarProperty Name="DistributdedDate" ColumnName="DistributdedDate" />
-                <ScalarProperty Name="FirstDueDate" ColumnName="FirstDueDate" />
-                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
-                <ScalarProperty Name="InterestPercentage" ColumnName="InterestPercentage" />
-                <ScalarProperty Name="EMIAmount" ColumnName="EMIAmount" />
-                <ScalarProperty Name="NoOfDues" ColumnName="NoOfDues" />
-                <ScalarProperty Name="RepaymentTypeId" ColumnName="RepaymentTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LoanCard_B">
-            <EntityTypeMapping TypeName="EModel.LoanCard_B">
-              <MappingFragment StoreEntitySet="LoanCard_B">
-                <ScalarProperty Name="LoanCardId" ColumnName="LoanCardId" />
-                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
-                <ScalarProperty Name="LoanCardName" ColumnName="LoanCardName" />
-                <ScalarProperty Name="DueNumber" ColumnName="DueNumber" />
-                <ScalarProperty Name="PlannedCollectionDate" ColumnName="PlannedCollectionDate" />
-                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
-                <ScalarProperty Name="ImpactTransValue" ColumnName="ImpactTransValue" />
-                <ScalarProperty Name="NonImpactTransValue" ColumnName="NonImpactTransValue" />
-                <ScalarProperty Name="ClosingBalance" ColumnName="ClosingBalance" />
-                <ScalarProperty Name="PlannedCashAccount" ColumnName="PlannedCashAccount" />
-                <ScalarProperty Name="ActualCashAccount" ColumnName="ActualCashAccount" />
-                <ScalarProperty Name="PlannedProfitAccount" ColumnName="PlannedProfitAccount" />
-                <ScalarProperty Name="ActualProfitAccount" ColumnName="ActualProfitAccount" />
-                <ScalarProperty Name="ActualCollectionDate" ColumnName="ActualCollectionDate" />
-                <ScalarProperty Name="IsCollected" ColumnName="IsCollected" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LoanDocuments_B">
-            <EntityTypeMapping TypeName="EModel.LoanDocuments_B">
-              <MappingFragment StoreEntitySet="LoanDocuments_B">
-                <ScalarProperty Name="LoanDocumentsId" ColumnName="LoanDocumentsId" />
-                <ScalarProperty Name="AadhaarCardNumber" ColumnName="AadhaarCardNumber" />
-                <ScalarProperty Name="AadhaarCardPath" ColumnName="AadhaarCardPath" />
-                <ScalarProperty Name="IsAadhaarCardCollected" ColumnName="IsAadhaarCardCollected" />
-                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RepaymentType_B">
-            <EntityTypeMapping TypeName="EModel.RepaymentType_B">
-              <MappingFragment StoreEntitySet="RepaymentType_B">
-                <ScalarProperty Name="RepaymentTypeId" ColumnName="RepaymentTypeId" />
-                <ScalarProperty Name="RepaymentTypeName" ColumnName="RepaymentTypeName" />
-                <ScalarProperty Name="IsMonthBased" ColumnName="IsMonthBased" />
-                <ScalarProperty Name="IsWeekBased" ColumnName="IsWeekBased" />
-                <ScalarProperty Name="IsDaysBased" ColumnName="IsDaysBased" />
-                <ScalarProperty Name="DueCycleDays" ColumnName="DueCycleDays" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_TodayCollectionDetails" FunctionName="EModel.Store.SP_TodayCollectionDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="EModel.SP_TodayCollectionDetails_Result">
@@ -1236,6 +1186,76 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_WeeklyReport_Branch" FunctionName="EModel.Store.SP_WeeklyReport_Branch" />
+          <EntitySetMapping Name="DbInfoNames">
+            <EntityTypeMapping TypeName="EModel.DbInfoName">
+              <MappingFragment StoreEntitySet="DbInfoName">
+                <ScalarProperty Name="DbInfoName1" ColumnName="DbInfoName" />
+                <ScalarProperty Name="DbInfoNameId" ColumnName="DbInfoNameId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DbInfoPeriods">
+            <EntityTypeMapping TypeName="EModel.DbInfoPeriod">
+              <MappingFragment StoreEntitySet="DbInfoPeriod">
+                <ScalarProperty Name="DbInfoPeriod1" ColumnName="DbInfoPeriod" />
+                <ScalarProperty Name="DbInfoPeriodId" ColumnName="DbInfoPeriodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DbInfoTypes">
+            <EntityTypeMapping TypeName="EModel.DbInfoType">
+              <MappingFragment StoreEntitySet="DbInfoType">
+                <ScalarProperty Name="DbInfoType1" ColumnName="DbInfoType" />
+                <ScalarProperty Name="DbInfoTypeId" ColumnName="DbInfoTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="EModel.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="ParentBranchId" ColumnName="ParentBranchId" />
+                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
+                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="LeaderId" ColumnName="LeaderId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="EModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAddresses">
+            <EntityTypeMapping TypeName="EModel.CustomerAddress">
+              <MappingFragment StoreEntitySet="CustomerAddress">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
+                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
+                <ScalarProperty Name="CustomerAddressId" ColumnName="CustomerAddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerBanks">
+            <EntityTypeMapping TypeName="EModel.CustomerBank">
+              <MappingFragment StoreEntitySet="CustomerBank">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="IFSCCode" ColumnName="IFSCCode" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="CustomerBankId" ColumnName="CustomerBankId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Leaders">
             <EntityTypeMapping TypeName="EModel.Leader">
               <MappingFragment StoreEntitySet="Leader">
@@ -1245,7 +1265,187 @@ warning 6002: The table/view 'E.E.RepaymentType_B' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Loans">
+            <EntityTypeMapping TypeName="EModel.Loan">
+              <MappingFragment StoreEntitySet="Loan">
+                <ScalarProperty Name="RepaymentTypeId" ColumnName="RepaymentTypeId" />
+                <ScalarProperty Name="NoOfDues" ColumnName="NoOfDues" />
+                <ScalarProperty Name="EMIAmount" ColumnName="EMIAmount" />
+                <ScalarProperty Name="InterestPercentage" ColumnName="InterestPercentage" />
+                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+                <ScalarProperty Name="FirstDueDate" ColumnName="FirstDueDate" />
+                <ScalarProperty Name="DistributdedDate" ColumnName="DistributdedDate" />
+                <ScalarProperty Name="DistributdedAmount" ColumnName="DistributdedAmount" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="LoanName" ColumnName="LoanName" />
+                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanCards">
+            <EntityTypeMapping TypeName="EModel.LoanCard">
+              <MappingFragment StoreEntitySet="LoanCard">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsCollected" ColumnName="IsCollected" />
+                <ScalarProperty Name="ActualCollectionDate" ColumnName="ActualCollectionDate" />
+                <ScalarProperty Name="ActualProfitAccount" ColumnName="ActualProfitAccount" />
+                <ScalarProperty Name="PlannedProfitAccount" ColumnName="PlannedProfitAccount" />
+                <ScalarProperty Name="ActualCashAccount" ColumnName="ActualCashAccount" />
+                <ScalarProperty Name="PlannedCashAccount" ColumnName="PlannedCashAccount" />
+                <ScalarProperty Name="ClosingBalance" ColumnName="ClosingBalance" />
+                <ScalarProperty Name="NonImpactTransValue" ColumnName="NonImpactTransValue" />
+                <ScalarProperty Name="ImpactTransValue" ColumnName="ImpactTransValue" />
+                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+                <ScalarProperty Name="PlannedCollectionDate" ColumnName="PlannedCollectionDate" />
+                <ScalarProperty Name="DueNumber" ColumnName="DueNumber" />
+                <ScalarProperty Name="LoanCardName" ColumnName="LoanCardName" />
+                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
+                <ScalarProperty Name="LoanCardId" ColumnName="LoanCardId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanDocuments">
+            <EntityTypeMapping TypeName="EModel.LoanDocument">
+              <MappingFragment StoreEntitySet="LoanDocuments">
+                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
+                <ScalarProperty Name="IsAadhaarCardCollected" ColumnName="IsAadhaarCardCollected" />
+                <ScalarProperty Name="AadhaarCardPath" ColumnName="AadhaarCardPath" />
+                <ScalarProperty Name="AadhaarCardNumber" ColumnName="AadhaarCardNumber" />
+                <ScalarProperty Name="LoanDocumentsId" ColumnName="LoanDocumentsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepaymentTypes">
+            <EntityTypeMapping TypeName="EModel.RepaymentType">
+              <MappingFragment StoreEntitySet="RepaymentType">
+                <ScalarProperty Name="DueCycleDays" ColumnName="DueCycleDays" />
+                <ScalarProperty Name="IsDaysBased" ColumnName="IsDaysBased" />
+                <ScalarProperty Name="IsWeekBased" ColumnName="IsWeekBased" />
+                <ScalarProperty Name="IsMonthBased" ColumnName="IsMonthBased" />
+                <ScalarProperty Name="RepaymentTypeName" ColumnName="RepaymentTypeName" />
+                <ScalarProperty Name="RepaymentTypeId" ColumnName="RepaymentTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branch_B">
+            <EntityTypeMapping TypeName="EModel.Branch_B">
+              <MappingFragment StoreEntitySet="Branch_B">
+                <ScalarProperty Name="ParentBranchId" ColumnName="ParentBranchId" />
+                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
+                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer_B">
+            <EntityTypeMapping TypeName="EModel.Customer_B">
+              <MappingFragment StoreEntitySet="Customer_B">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAddress_B">
+            <EntityTypeMapping TypeName="EModel.CustomerAddress_B">
+              <MappingFragment StoreEntitySet="CustomerAddress_B">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
+                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
+                <ScalarProperty Name="CustomerAddressId" ColumnName="CustomerAddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerBank_B">
+            <EntityTypeMapping TypeName="EModel.CustomerBank_B">
+              <MappingFragment StoreEntitySet="CustomerBank_B">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="IFSCCode" ColumnName="IFSCCode" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="CustomerBankId" ColumnName="CustomerBankId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loan_B">
+            <EntityTypeMapping TypeName="EModel.Loan_B">
+              <MappingFragment StoreEntitySet="Loan_B">
+                <ScalarProperty Name="RepaymentTypeId" ColumnName="RepaymentTypeId" />
+                <ScalarProperty Name="NoOfDues" ColumnName="NoOfDues" />
+                <ScalarProperty Name="EMIAmount" ColumnName="EMIAmount" />
+                <ScalarProperty Name="InterestPercentage" ColumnName="InterestPercentage" />
+                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+                <ScalarProperty Name="FirstDueDate" ColumnName="FirstDueDate" />
+                <ScalarProperty Name="DistributdedDate" ColumnName="DistributdedDate" />
+                <ScalarProperty Name="DistributdedAmount" ColumnName="DistributdedAmount" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="LoanName" ColumnName="LoanName" />
+                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanCard_B">
+            <EntityTypeMapping TypeName="EModel.LoanCard_B">
+              <MappingFragment StoreEntitySet="LoanCard_B">
+                <ScalarProperty Name="IsCollected" ColumnName="IsCollected" />
+                <ScalarProperty Name="ActualCollectionDate" ColumnName="ActualCollectionDate" />
+                <ScalarProperty Name="ActualProfitAccount" ColumnName="ActualProfitAccount" />
+                <ScalarProperty Name="PlannedProfitAccount" ColumnName="PlannedProfitAccount" />
+                <ScalarProperty Name="ActualCashAccount" ColumnName="ActualCashAccount" />
+                <ScalarProperty Name="PlannedCashAccount" ColumnName="PlannedCashAccount" />
+                <ScalarProperty Name="ClosingBalance" ColumnName="ClosingBalance" />
+                <ScalarProperty Name="NonImpactTransValue" ColumnName="NonImpactTransValue" />
+                <ScalarProperty Name="ImpactTransValue" ColumnName="ImpactTransValue" />
+                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+                <ScalarProperty Name="PlannedCollectionDate" ColumnName="PlannedCollectionDate" />
+                <ScalarProperty Name="DueNumber" ColumnName="DueNumber" />
+                <ScalarProperty Name="LoanCardName" ColumnName="LoanCardName" />
+                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
+                <ScalarProperty Name="LoanCardId" ColumnName="LoanCardId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanDocuments_B">
+            <EntityTypeMapping TypeName="EModel.LoanDocuments_B">
+              <MappingFragment StoreEntitySet="LoanDocuments_B">
+                <ScalarProperty Name="LoanId" ColumnName="LoanId" />
+                <ScalarProperty Name="IsAadhaarCardCollected" ColumnName="IsAadhaarCardCollected" />
+                <ScalarProperty Name="AadhaarCardPath" ColumnName="AadhaarCardPath" />
+                <ScalarProperty Name="AadhaarCardNumber" ColumnName="AadhaarCardNumber" />
+                <ScalarProperty Name="LoanDocumentsId" ColumnName="LoanDocumentsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepaymentType_B">
+            <EntityTypeMapping TypeName="EModel.RepaymentType_B">
+              <MappingFragment StoreEntitySet="RepaymentType_B">
+                <ScalarProperty Name="DueCycleDays" ColumnName="DueCycleDays" />
+                <ScalarProperty Name="IsDaysBased" ColumnName="IsDaysBased" />
+                <ScalarProperty Name="IsWeekBased" ColumnName="IsWeekBased" />
+                <ScalarProperty Name="IsMonthBased" ColumnName="IsMonthBased" />
+                <ScalarProperty Name="RepaymentTypeName" ColumnName="RepaymentTypeName" />
+                <ScalarProperty Name="RepaymentTypeId" ColumnName="RepaymentTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DbInfoStatus">
+            <EntityTypeMapping TypeName="EModel.DbInfoStatu">
+              <MappingFragment StoreEntitySet="DbInfoStatus">
+                <ScalarProperty Name="DbInfoStatus" ColumnName="DbInfoStatus" />
+                <ScalarProperty Name="DbInfoPeriodId" ColumnName="DbInfoPeriodId" />
+                <ScalarProperty Name="DbInfoLoanId" ColumnName="DbInfoLoanId" />
+                <ScalarProperty Name="DbInfoTypeId" ColumnName="DbInfoTypeId" />
+                <ScalarProperty Name="DbInfoStatusId" ColumnName="DbInfoStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -137,6 +137,9 @@
     </Compile>
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DbInfoNamesController.cs" />
+    <Compile Include="Controllers\DbInfoStatusController.cs" />
+    <Compile Include="Controllers\DbInfoTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeadersController.cs" />
     <Compile Include="Controllers\LoanCardsController.cs" />
@@ -161,6 +164,18 @@
       <DependentUpon>E1Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Customer_B.cs">
+      <DependentUpon>E1Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbInfoName.cs">
+      <DependentUpon>E1Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbInfoPeriod.cs">
+      <DependentUpon>E1Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbInfoStatu.cs">
+      <DependentUpon>E1Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbInfoType.cs">
       <DependentUpon>E1Model.tt</DependentUpon>
     </Compile>
     <Compile Include="E1Model.Context.cs">
@@ -215,6 +230,9 @@
       <DependentUpon>E1Model.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_WeekCollectionDetails_Result.cs">
+      <DependentUpon>E1Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_WeeklyReport_Backup08Oct_Result.cs">
       <DependentUpon>E1Model.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_WeeklyReport_Branch_Result.cs">
@@ -314,6 +332,21 @@
     <Content Include="Views\LoanCardsEdit\Details.cshtml" />
     <Content Include="Views\LoanCardsEdit\Edit.cshtml" />
     <Content Include="Views\LoanCardsEdit\Index.cshtml" />
+    <Content Include="Views\DbInfoTypes\Create.cshtml" />
+    <Content Include="Views\DbInfoTypes\Delete.cshtml" />
+    <Content Include="Views\DbInfoTypes\Details.cshtml" />
+    <Content Include="Views\DbInfoTypes\Edit.cshtml" />
+    <Content Include="Views\DbInfoTypes\Index.cshtml" />
+    <Content Include="Views\DbInfoNames\Create.cshtml" />
+    <Content Include="Views\DbInfoNames\Delete.cshtml" />
+    <Content Include="Views\DbInfoNames\Details.cshtml" />
+    <Content Include="Views\DbInfoNames\Edit.cshtml" />
+    <Content Include="Views\DbInfoNames\Index.cshtml" />
+    <Content Include="Views\DbInfoStatus\Create.cshtml" />
+    <Content Include="Views\DbInfoStatus\Delete.cshtml" />
+    <Content Include="Views\DbInfoStatus\Details.cshtml" />
+    <Content Include="Views\DbInfoStatus\Edit.cshtml" />
+    <Content Include="Views\DbInfoStatus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

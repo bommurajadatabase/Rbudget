@@ -19,6 +19,7 @@ namespace E1
         {
             this.LoanDocuments = new HashSet<LoanDocument>();
             this.LoanCards = new HashSet<LoanCard>();
+            this.DbInfoStatus = new HashSet<DbInfoStatu>();
         }
     
         public int LoanId { get; set; }
@@ -38,8 +39,9 @@ namespace E1
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoanDocument> LoanDocuments { get; set; }
-        public virtual RepaymentType RepaymentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoanCard> LoanCards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DbInfoStatu> DbInfoStatus { get; set; }
     }
 }

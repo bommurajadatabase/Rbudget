@@ -23,19 +23,19 @@ namespace E1
         }
     
         public int BranchId { get; set; }
+        public Nullable<int> LeaderId { get; set; }
         public string BranchName { get; set; }
         public string AddressLineOne { get; set; }
         public string AddressLineTwo { get; set; }
         public Nullable<int> ParentBranchId { get; set; }
-        public Nullable<int> LeaderId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Branch> Branch1 { get; set; }
         public virtual Branch Branch2 { get; set; }
+        public virtual Leader Leader { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Loan> Loans { get; set; }
-        public virtual Leader Leader { get; set; }
     }
 }

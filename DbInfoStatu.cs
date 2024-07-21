@@ -12,13 +12,16 @@ namespace E1
     using System;
     using System.Collections.Generic;
     
-    public partial class RepaymentType
+    public partial class DbInfoStatu
     {
-        public int RepaymentTypeId { get; set; }
-        public string RepaymentTypeName { get; set; }
-        public Nullable<bool> IsMonthBased { get; set; }
-        public Nullable<bool> IsWeekBased { get; set; }
-        public Nullable<bool> IsDaysBased { get; set; }
-        public Nullable<int> DueCycleDays { get; set; }
+        public long DbInfoStatusId { get; set; }
+        public Nullable<int> DbInfoTypeId { get; set; }
+        public Nullable<int> DbInfoLoanId { get; set; }
+        public Nullable<int> DbInfoPeriodId { get; set; }
+        public Nullable<bool> DbInfoStatus { get; set; }
+    
+        public virtual Loan Loan { get; set; }
+        public virtual DbInfoPeriod DbInfoPeriod { get; set; }
+        public virtual DbInfoType DbInfoType { get; set; }
     }
 }

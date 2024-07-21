@@ -9,9 +9,10 @@
         display: table-row-group
     }
 </style>
+
 @using (Html.BeginForm("Index", "LoanCards", FormMethod.Post, new { id = "loanCardParamsForm" }))
 {
-
+    <br />
     <div class="form-group row">
         <div class="col-md-2">
             @Html.TextBox("LoanCardFromDate", null, new { @class = "form-control", @placeholder = "LoanCardFromDate" })
@@ -22,60 +23,71 @@
         <div class="col-md-2">
             <input type="submit" value="Loan Card" class="form-control btn-success" />
         </div>
-        <div class="col-md-2">
-        </div>
+        @*<div class="col-md-.5">
+                <label onclick="DelLoanandCard()">Del</label>
+            </div>*@
+
+
+
+    <div class="col-md-3">
+
+        @*<input type="button" id="statusbtnall" value="A (@ViewBag.statusradioallcount)" class="form-control" />*@
+        <span id="statusbtnall" class="btn">A (@ViewBag.statusradioallcount)</span>
+        @*<input type="button" id="statusbtnpending" value="P (@ViewBag.statusradiopendingcount)" class="form-control" />*@
+        <span id="statusbtnpending" class="btn">P (@ViewBag.statusradiopendingcount)</span>
+
+        @*<input type="button" id="statusbtncompleted" value="C (@ViewBag.statusradiocompletedcount)" class="form-control" />*@
+        <span id="statusbtncompleted" class="btn">C (@ViewBag.statusradiocompletedcount)</span>
+        <a onclick="DelLoanandCard()">D</a>
+        <input type="checkbox" id="isActive" checked="checked" name="isAllCollected" />
+        @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    </div>
         <div class="col-md-2">
             @Html.TextBox("OneAccountSearch", null, new { @class = "form-control", @placeholder = "One Account Search" })
             @Html.Hidden("HdnLoanId")
             @Html.Hidden("HdnLoanName")
-        </div>
-        <div class="col-md-2">
-            <input type="submit" value="One Account" class="form-control btn-primary" />
-        </div>
 
+        </div>
+        <div class="col-md-1">
+            <input type="submit" value="Find" class="form-control btn-primary" />
+            @*<label onclick="DelLoanandCard()">Del</label>*@
+
+        </div>
     </div>
-    <div class="form-group row">
-        <div class="col-md-2">
-            <input type="button" id="statusbtnall" value="All (@ViewBag.statusradioallcount)" class="form-control" />
 
+    @*<br />*@
+    @*<div class="form-group row">
+        <div class="col-md-6">
+            <span class="btn">Pending (@ViewBag.PendingCount)</span>
+            <span class="btn">FollowUp (@ViewBag.FollowUpCount)</span>
+            <span class="btn">Cards (@ViewBag.CardsCount)</span>
+            <span class="btn">Enquires (@ViewBag.EnquiresCount)</span>
         </div>
-        <div class="col-md-2">
-            <input type="button" id="statusbtnpending" value="Pending (@ViewBag.statusradiopendingcount)" class="form-control" />
-
+        <div class="col-md-6">
+         
         </div>
-        <div class="col-md-2">
-            <input type="button" id="statusbtncompleted" value="Completed (@ViewBag.statusradiocompletedcount)" class="form-control" />
-
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-2">
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
-        </div>
-
-    </div>
+       
+    </div>*@
 }
 
-<table id="loanCardsTable" class="table cell-border" style="width:100%">
-    <thead>
+<table id="loanCardsTable" class="table table-bordered" style="width:100%">
+    <thead style="background-color:lightgray">
         <tr>
             <th>
                 LoanName
             </th>
 
             <th>
-                Opening Bal
+                Openin Bal
             </th>
             <th>
-                Impace Bal
+                Impact Bal
             </th>
 
             <th>
-                Clsoing Bal
+                Closing Bal
             </th>
             <th>
                 Cash A/C
@@ -93,14 +105,14 @@
             </th>
 
             <th>
-                Opening Bal
+                Openin Bal
             </th>
             <th>
-                Impace Bal
+                Impact Bal
             </th>
 
             <th>
-                Clsoing Bal
+                Closing Bal
             </th>
             <th>
                 Cash A/C
@@ -116,7 +128,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Loan.LoanName)
+                    @Html.DisplayFor(modelItem => item.LoanCardName)
                 </td>
 
                 <td>
@@ -145,6 +157,9 @@
     </tbody>
 </table>
 
+<div id="delLoanConfirmbox" title="Empty the recycle bin?" style="display:none">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
 <style type="text/css">
     tfoot {
         display: table-row-group;
@@ -184,7 +199,7 @@
 
             $(this).insertAfter($(this).siblings('#loanCardsTable thead'));
 
-            $(this).html('<input type="text" placeholder="search"/>');
+            $(this).html('<input type="text" size="5" placeholder="search"/>');
 
             $('input', this).on('keyup change', function () {
                 if (table.column(i).search() !== this.value) {
@@ -195,7 +210,7 @@
                 }
             });
             $('input').each(function () {
-                $(this).width($(this).parent().width() - 20);
+                $(this).width($(this).parent().width() - 26);
             });
 
 
@@ -207,6 +222,7 @@
 
         var table = $('#loanCardsTable').DataTable({
             dom: 'Blfrtip'
+            ,order: [[1, 'desc']]
             , drawCallback: function () {
                 var api = this.api();
                 var sum = 0;
@@ -225,21 +241,23 @@
                     exportOptions: {
                         columns: ':visible'
                     }
-                },
-                {
-                    extend: 'csv',
-                    title: 'csv',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    title: 'pdf',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
+                }
+                //,
+                //{
+                //    extend: 'csv',
+                //    title: 'csv',
+                //    exportOptions: {
+                //        columns: ':visible'
+                //    }
+                //},
+                //{
+                //    extend: 'pdf',
+                //    title: 'pdf',
+                //    exportOptions: {
+                //        columns: ':visible'
+                //    }
+                //}
+                ,
                 {
                     extend: 'print',
                     exportOptions: {
@@ -252,7 +270,11 @@
                         columns: ':visible'
                     }
                 }
-            ]
+            ],
+            columnDefs: [{
+                targets: 6,
+                visible: false
+            }]
             , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 
         });
@@ -387,5 +409,58 @@
         $('#loanCardParamsForm').append(input);
         $('#loanCardParamsForm').submit();
     }
+
+    function DelLoanandCard() {
+
+
+        $("#delLoanConfirmbox").dialog({
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Delete all items": function () {
+                    $.ajax({
+                        url: "/LoanCards/DeleteLoanAndItsCard",
+                        type: "POST",
+                        dataType: "json",
+                        data: { LoanId: $('#HdnLoanId').val() },
+                        success: function (data) {
+                            window.location.href = '/LoanCards/Index/';
+                        }
+
+                    })
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+
+    }
+
+
+
+    $('#isActive').change(function () {
+            
+        window.location.href = '/LoanCards/Index?isActive=' + $(this).prop('checked');
+
+        //$.ajax({
+        //    url: "/LoanCards/Index",
+        //    type: "POST",
+        //    dataType: "json",
+        //    data: { isActive: $(this).prop('checked') },
+        //    success: function (data) {
+        //        window.location.href = '/LoanCards/Index?isActive=' + $(this).prop('checked');
+        //    }
+
+        //})
+            
+        });
+
+
+
 
 </script>

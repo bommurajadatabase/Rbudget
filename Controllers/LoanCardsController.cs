@@ -16,13 +16,14 @@ namespace E1.Controllers
 
 
         // GET: LoanCards
-        public ActionResult Index(DateTime? LoanCardFromDate, DateTime? LoanCardToDate,string statusradio,string HdnLoanId)
+        public ActionResult Index(DateTime? LoanCardFromDate, DateTime? LoanCardToDate,string statusradio,string HdnLoanId,bool? isActive)
         {
+            isActive = (isActive == null) ? true : isActive;
             string DatabaseName = "Z";
             DatabaseName = db.Database.Connection.Database;
             Session.Add("ApplicationName", DatabaseName);
             var loanCards = new List<LoanCard>();
-            if (HdnLoanId == null)
+            if (HdnLoanId == null || HdnLoanId == "")
             {
                 ViewBag.statusradioallcount = 0;
                 ViewBag.statusradiopendingcount = 0;
@@ -48,13 +49,52 @@ namespace E1.Controllers
                             LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
                             LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
                             break;
-
+                        case "T":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+                        case "Ro":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+                        case "ts1":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+                        case "ts2":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+                        case "us1":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+                        case "us2":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+                        case "vs1":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
+                        case "vs2":
+                            LoanCardFromDate = new DateTime(now.Year, now.Month, 1).Date;
+                            LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddMonths(1).AddDays(-1).Date;
+                            break;
                         default:
                             LoanCardFromDate = DateTime.Now.Date;
                             LoanCardToDate = Convert.ToDateTime(LoanCardFromDate).AddDays(6).Date;
                             break;
                     }
-                    loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate).ToList();
+                    if ((bool)isActive)
+                    {
+                        loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate && m.IsActive == isActive).ToList();
+                    }
+                    else
+                    {
+                        loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate).ToList();
+                    }
+
 
                     ViewBag.statusradioallcount = loanCards.ToList().Count;
                     ViewBag.statusradiopendingcount = loanCards.Where(m => m.IsCollected == false).ToList().Count;
@@ -73,7 +113,21 @@ namespace E1.Controllers
                 }
                 else
                 {
-                    loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate).ToList();
+                    if ((bool)isActive)
+                    {
+
+                        loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate && m.IsActive == isActive).ToList();
+                    }
+                    else
+                    {
+                        loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.PlannedCollectionDate >= LoanCardFromDate && m.PlannedCollectionDate <= LoanCardToDate ).ToList();
+
+                    }
+
+                    ViewBag.statusradioallcount = loanCards.ToList().Count;
+                    ViewBag.statusradiopendingcount = loanCards.Where(m => m.IsCollected == false).ToList().Count;
+                    ViewBag.statusradiocompletedcount = loanCards.Where(m => m.IsCollected == true).ToList().Count;
+
                     if (statusradio == "pending")
                     {
                         loanCards = loanCards.Where(m => m.IsCollected == false).ToList();
@@ -96,8 +150,24 @@ namespace E1.Controllers
                 ViewBag.statusradiocompletedcount = 0;
                 int hdnLoanId = 0;
                 hdnLoanId = Convert.ToInt32(HdnLoanId);
-                loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.LoanId == hdnLoanId).ToList();
+                if ((bool)isActive)
+                {
+                    loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.LoanId == hdnLoanId && m.IsActive == isActive).ToList();
+                }
+                else
+                {
+                    loanCards = db.LoanCards.Include(l => l.Loan).Where(m => m.LoanId == hdnLoanId ).ToList();
+
+                }
+                loanCards = loanCards.OrderBy(m=>m.LoanCardId).ToList();
             }
+
+            //ViewBag.PendingCount = db.DbInfoes.Where(m=>m.DbInfoType.DbInfoType1.ToLower()=="pending" && m.IsCompleted==false).ToList().Count;
+            //ViewBag.FollowUpCount = db.DbInfoes.Where(m => m.DbInfoType.DbInfoType1.ToLower() == "followup" && m.IsCompleted == false).ToList().Count; 
+            //ViewBag.CardsCount = db.DbInfoes.Where(m => m.DbInfoType.DbInfoType1.ToLower() == "cards" && m.IsCompleted == false).ToList().Count; 
+            //ViewBag.EnquiresCount = db.DbInfoes.Where(m => m.DbInfoType.DbInfoType1.ToLower() == "enquires" && m.IsCompleted == false ).ToList().Count; 
+
+
             return View(loanCards.ToList());
 
         }
@@ -116,6 +186,17 @@ namespace E1.Controllers
                             ,LoanId = N.LoanId
                         });
             return Json(LoanCardDetails, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteLoanAndItsCard(string LoanId)
+        {
+            int loanId = Convert.ToInt32(LoanId);
+            db.LoanCards.RemoveRange(db.LoanCards.Where(m => m.LoanId == loanId));
+            var loan = db.Loans.Where(m => m.LoanId == loanId).FirstOrDefault();
+            db.Loans.Remove(loan);
+            db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
         // GET: LoanCards/Details/5
         public ActionResult Details(int? id)
@@ -178,7 +259,7 @@ namespace E1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LoanCardId,LoanId,LoanCardName,DueNumber,PlannedCollectionDate,OpeningBalance,ImpactTransValue,NonImpactTransValue,ClosingBalance,PlannedCashAccount,ActualCashAccount,PlannedProfitAccount,ActualProfitAccount,ActualCollectionDate,IsCollected")] LoanCard loanCard)
+        public ActionResult Edit([Bind(Include = "LoanCardId,LoanId,LoanCardName,DueNumber,PlannedCollectionDate,OpeningBalance,ImpactTransValue,NonImpactTransValue,ClosingBalance,PlannedCashAccount,ActualCashAccount,PlannedProfitAccount,ActualProfitAccount,ActualCollectionDate,IsCollected,IsActive")] LoanCard loanCard)
         {
             if (ModelState.IsValid)
             {
